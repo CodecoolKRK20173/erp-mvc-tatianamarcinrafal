@@ -117,3 +117,4 @@ def print_error_message(message):
     """
 
     # your code
+    print(f"Error: {message}")
