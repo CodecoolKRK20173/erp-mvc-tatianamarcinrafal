@@ -14,6 +14,12 @@ from model import data_manager
 from model import common
 
 
+def create_table():
+
+    table_list = data_manager.get_table_from_file('inventory.csv')
+    return table_list
+
+
 def add(table, record):
     """
     Add new record to table
@@ -26,6 +32,8 @@ def add(table, record):
         list: Table with a new record
     """
     # your code
+    
+    table = table.append(record)
 
     return table
 

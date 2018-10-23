@@ -27,6 +27,15 @@ def add(table, record):
     Returns:
         list: Table with a new record
     """
+    table = open("items.csv")
+    record = []
+    id_input = generate_random(table)
+    month_number = str(input("Enter a namer of month: "))
+    day_number = str(input("Enter a number of day: "))
+    year_number = str(input("Enter a number of year: "))
+    type_string = str(input("Selected operation 1. income money, 2. outflow money"))
+    amount_int = str(input("Enter an amount: "))
+    record.append()
     # your code
 
     return table
