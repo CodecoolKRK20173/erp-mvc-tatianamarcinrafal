@@ -2,6 +2,7 @@
 from view import terminal_view
 from model.inventory import inventory
 import model
+from model import data_manager
 from controller import common
 
 
@@ -15,15 +16,13 @@ def run():
         None
     """
     options = ['Add item', 'Edit item', 'Remove item']
-    terminal_view.get_choice(options)
-
-    table = inventory.create_table()
-
+    # terminal_view.get_choice(options)
+    link_to_csv = 'model/inventory/inventory.csv'
     choice = None
     while choice != "0":
         choice = terminal_view.get_choice(options)
         if choice == "1":
-            add_item(table)
+            add_item(link_to_csv)
         elif choice == "2":
             hr_controller.run()
         elif choice == "3":
@@ -31,15 +30,22 @@ def run():
         else:
             terminal_view.print_error_message("There is no such choice.")
 
-def add_item(table):
+
+def add_item(link_to_csv):
     new_record = []
-    new_record = terminal_view.get_inputs(['Name of item', 'Manufacturer', 'Year of purchase',
-                                           'Years it can be used'], 'Please input information about platform: ')
+    new_record = terminal_view.get_inputs(['Name of item: ', 'Manufacturer: ', 'Year of purchase: ',
+                                           'Years it can be used: '], 'Please input information about platform: ')
 
-    # table = inventory.create_file()
-    new_record.insert(0, model.common.generate_random())
+    table = data_manager.get_table_from_file(link_to_csv)
+    new_record.insert(0, model.common.generate_random(table))
     ready_table = inventory.add(table, new_record)
-    print(ready_table)
+    data_manager.write_table_to_file(link_to_csv, ready_table)
 
-    # woła widok z inputami, po pobraniu inputow
-    # To przesyla do model/inventory
+
+def edit_item(link_to_csv):
+    table = data_manager.get_table_from_file(link_to_csv)
+    print(table)
+    what_id_edit = terminal_view.get_inputs(["Ids' number: "], 'What position (by id) do you want edit: ')
+    for record in table:
+        if record[0] == what_id_edit:
+            print

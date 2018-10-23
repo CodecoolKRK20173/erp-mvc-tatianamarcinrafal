@@ -62,14 +62,13 @@ def print_menu(title, list_options, exit_message):
     """
 
     # your code
-    
+
     print(f'{title}')
     for numb, options in enumerate(list_options, 1):
         numb = f'({numb})'
         print(f'{numb:>6} {options}')
     zero_option = '(0)'
     print(f'{zero_option:>6} {exit_message}')
-
 
 
 def get_inputs(list_labels, title):
@@ -99,10 +98,12 @@ def get_inputs(list_labels, title):
 
     return inputs
 
+
 def get_choice(options):
     print_menu("Main menu", options, "Exit program")
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]
+
 
 def print_error_message(message):
     """
