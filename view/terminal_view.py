@@ -22,10 +22,36 @@ def print_table(table, title_list):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your goes code
+    table.insert(0, title_list)
+    table_with_titles = table
+    how_many_column = len(title_list)
+    the_logest_item_in_each_column = []
+    empty_list = True
+    for item in table_with_titles:
+        for index, value in enumerate(item):
+            if empty_list:
+                the_logest_item_in_each_column.append(len(value))
+            else:
+                if the_logest_item_in_each_column[index] < len(value):
+                    the_logest_item_in_each_column[index] = len(value)
+        empty_list = False
+
+    sum_of_all_characters = 0
+    for item in the_logest_item_in_each_column:
+        sum_of_all_characters += item
+
+    how_much_free_space_around_word = 3
+    width_table = sum_of_all_characters + (how_much_free_space_around_word*2*how_many_column)-1
+    line = 0
+    print('\n' + '-'*width_table)
+    for row in table_with_titles:
+        for i in range(how_many_column):
+            a = the_logest_item_in_each_column[i]+how_much_free_space_around_word
+            print(row[i].center(a, ' '), end=' | ')
+        print('\n' + '-'*width_table)
 
 
-def print_result(result, label):
+def print_result(result, label=''):
     """
     Displays results of the special functions.
 
@@ -38,6 +64,12 @@ def print_result(result, label):
     """
 
     # your code
+    if str(result):
+        print(f'{label}\n{result}')
+    elif list(result):
+        print(label)
+        for item in result:
+            print(item)
 
 
 def print_menu(title, list_options, exit_message):
@@ -101,6 +133,12 @@ def get_inputs(list_labels, title):
 
 def get_choice(options):
     print_menu("Main menu", options, "Exit program")
+    inputs = get_inputs(["Please enter a number: "], "")
+    return inputs[0]
+
+
+def get_choice_submenu(options):
+    print_menu("Submenu", options, "Exit program")
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]
 
