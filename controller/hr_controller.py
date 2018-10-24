@@ -15,17 +15,18 @@ def run():
         None
     """
     options = ["Add", "Remove", "Update", "Oldest person", "Persons closest to average"]
+    common_options = ["Name: ", "Year: "]
     file = "model/hr/persons.csv"
     table = common.get_table_from(file)
     choice = None
     while choice != '0':
         choice = terminal_view.get_choice(options)
         if choice == '1':
-            common.add(file)
+            common.add(file, common_options)
         if choice == '2':
-            common.remove(file)
+            common.remove(file, common_options)
         if choice == '3':
-            common.update(file)
+            common.update(file, common_options)
         if choice == '4':
             hr.get_oldest_person(table)
             # print here
