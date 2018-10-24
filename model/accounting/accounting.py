@@ -27,6 +27,10 @@ def add(table, record):
     Returns:
         list: Table with a new record
     """
+    file_open = open(filename)
+    reader = csv.reader(file_open)
+    for row in reader:
+        file_open_list = row
     table = open("items.csv")
     record = []
     id_input = generate_random(table)
@@ -36,6 +40,7 @@ def add(table, record):
     type_string = str(input("Selected operation 1. income money, 2. outflow money"))
     amount_int = str(input("Enter an amount: "))
     record.append()
+
     # your code
 
     return table
