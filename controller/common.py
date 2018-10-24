@@ -13,6 +13,9 @@ def get_table_from(file):
 def save(file, table):
     data_manager.write_table_to_file(file, table)
 
+# file - path to file you work on, defined in <section>_controller.py
+# common_options - list of strings being names of entry options, also defined in <section>_controller.py
+
 def add(file, common_options):
     get_table_from(file)
     record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data:")
