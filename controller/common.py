@@ -1,7 +1,8 @@
 import model
 from model import data_manager
 from view import terminal_view
-from model.hr import hr              #pomocy za dużo importów
+from model.hr import hr
+from model import common              #pomocy za dużo importów
 
 
 def get_table_from(file):
@@ -15,19 +16,19 @@ def save(file, table):
 def add(file):
     get_table_from(file)
     record = terminal_view.get_inputs(["Name:", "Year:"], "Please provide following data:")
-    save(file, hr.add(get_table_from(file), record))
+    save(file, common.add(get_table_from(file), record)) 
     # print here
 
 
 def remove(file):
     get_table_from(file)
     id_ = terminal_view.get_inputs(["id_"], "Please provide ID you want to remove")
-    save(file, hr.remove(get_table_from(file), id_))
+    save(file, common.remove(get_table_from(file), id_))
     # print here
 
 def update(file):
     get_table_from(file)
     id_ = terminal_view.get_inputs(["id_"], "Please provide ID you want to edit")
     record = terminal_view.get_inputs(["Name:", "Year:"], "Please provide following data:")
-    save(file, hr.update(get_table_from(file), id_, record))
+    save(file, common.update(get_table_from(file), id_, record))
     # print here
