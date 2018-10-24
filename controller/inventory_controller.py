@@ -50,8 +50,8 @@ def edit_item(link_to_csv):
     # print(table)
     what_id_edit = terminal_view.get_inputs(["Ids' number: "], 'What position (by id) do you want edit: ')
     
-    for record in table:
-if record[0] == what_id_edit:
-        if str(record[0]) == what_id_edit[0]:
-            terminal_view.print_result(record, '') #drukuje liste
+#     for record in table:
+# if record[0] == what_id_edit:
+#         if str(record[0]) == what_id_edit[0]:
+#             terminal_view.print_result(record, '') #drukuje liste
 
