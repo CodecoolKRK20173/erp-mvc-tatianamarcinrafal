@@ -48,4 +48,3 @@ def edit_item(link_to_csv):
     what_id_edit = terminal_view.get_inputs(["Ids' number: "], 'What position (by id) do you want edit: ')
     for record in table:
         if record[0] == what_id_edit:
-            print
