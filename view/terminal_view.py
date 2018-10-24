@@ -64,12 +64,20 @@ def print_result(result, label=''):
     """
 
     # your code
-    if str(result):
-        print(f'{label}\n{result}')
-    elif list(result):
-        print(label)
+    if type(result) == str:
+        if label:
+            print(f'{label}')
+        print(f'{result}')
+    elif type(result) == list:
+        if label:
+            print(label)
         for item in result:
             print(item)
+    elif type(result) == dict:
+        if label:
+            print(label)
+        for key, value in result.items():
+            print(f'{key} -> {value}')
 
 
 def print_menu(title, list_options, exit_message):
