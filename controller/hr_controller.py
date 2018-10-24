@@ -15,41 +15,24 @@ def run():
         None
     """
     options = ["Add", "Remove", "Update", "Oldest person", "Persons closest to average"]
-    table = data_manager.get_table_from_file("model/hr/persons.csv")
+    file = "model/hr/persons.csv"
+    table = common.get_table_from(file)
     choice = None
     while choice != '0':
         choice = terminal_view.get_choice(options)
         if choice == '1':
-            add()
+            common.add(file)
         if choice == '2':
-            remove()
+            common.remove(file)
         if choice == '3':
-            update()
+            common.update(file)
         if choice == '4':
             hr.get_oldest_person(table)
+            # print here
         if choice == '5':
             hr.get_persons_closest_to_average(table)
+            # print here
 
         else:
             terminal_view.print_error_message("There is no such choice.")
 
-
-def add():
-    table = data_manager.get_table_from_file("model/hr/persons.csv")
-    record = terminal_view.get_inputs(["Name:", "Year:"], "Please provide following data:")
-    hr.add(table, record)
-    data_manager.write_table_to_file("model/hr/persons.csv", table)
-
-
-def remove():
-    table = data_manager.get_table_from_file("model/hr/persons.csv")
-    id_ = terminal_view.get_inputs(["id_"], "Please provide ID you want to remove")
-    hr.remove(table, id_)
-    data_manager.write_table_to_file("model/hr/persons.csv", table)
-
-def update():
-    table = data_manager.get_table_from_file("model/hr/persons.csv")
-    id_ = terminal_view.get_inputs(["id_"], "Please provide ID you want to edit")
-    record = terminal_view.get_inputs(["Name:", "Year:"], "Please provide following data:")
-    hr.update(table, id_, record)
-    data_manager.write_table_to_file("model/hr/persons.csv", table)
