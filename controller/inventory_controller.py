@@ -20,11 +20,11 @@ def run():
     link_to_csv = 'model/inventory/inventory.csv'
     choice = None
     while choice != "0":
-        choice = terminal_view.get_choice(options)
+        choice = terminal_view.get_choice_submenu(options)
         if choice == "1":
             add_item(link_to_csv)
         elif choice == "2":
-            hr_controller.run()
+            edit_item(link_to_csv)
         elif choice == "3":
             inventory_controller.run()
         else:
@@ -32,7 +32,9 @@ def run():
 
 
 def add_item(link_to_csv):
-    new_record = []
+    # new_record = []
+    column_names = ['Id', 'Name of item', 'Manufacturer', 'Year of purchase',
+                                           'Used years']
     new_record = terminal_view.get_inputs(['Name of item: ', 'Manufacturer: ', 'Year of purchase: ',
                                            'Years it can be used: '], 'Please input information about platform: ')
 
@@ -40,11 +42,16 @@ def add_item(link_to_csv):
     new_record.insert(0, model.common.generate_random(table))
     ready_table = inventory.add(table, new_record)
     data_manager.write_table_to_file(link_to_csv, ready_table)
-
+    
+    terminal_view.print_table(ready_table, column_names)
 
 def edit_item(link_to_csv):
     table = data_manager.get_table_from_file(link_to_csv)
-    print(table)
+    # print(table)
     what_id_edit = terminal_view.get_inputs(["Ids' number: "], 'What position (by id) do you want edit: ')
+    
     for record in table:
-        if record[0] == what_id_edit:
+if record[0] == what_id_edit:
+        if str(record[0]) == what_id_edit[0]:
+            terminal_view.print_result(record, '') #drukuje liste
+
