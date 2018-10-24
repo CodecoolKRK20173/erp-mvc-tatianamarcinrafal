@@ -164,13 +164,5 @@ def print_error_message(message):
 
     # your code
 
+    print(f"Error: {message}")
 
-def main():
-    dictio = {'key': 'value_1',
-              'key_2': 'value2'}
-
-    print_result(dict(dictio), 'label')
-
-
-if __name__ == '__main__':
-    main()
