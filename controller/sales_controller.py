@@ -7,7 +7,7 @@ import os
 
 
 def run():
-    options = ["Add", "Remove", "Update", "Lowest price item ID[in progress]", "Items sold between[in progress]"]
+    options = ["Add", "Remove", "Update", "Lowest price item ID", "Items sold between[in progress]"]
     common_options = ["Title: ", "Price: ", "Month: ", "Day: ", "Year: "]
     file = "model/sales/sales.csv"
     title_list = ["ID", "Title", "Price", "Month", "Day", "Year"]
@@ -24,8 +24,8 @@ def run():
         if choice == '3':
             common.update(file, common_options)
         if choice == '4':
-            sales.get_lowest_price_item_id
-            # print here
+            lowest_price = sales.get_lowest_price_item_id(table)
+            terminal_view.print_result(lowest_price, 'Lowest price game is: ')
         if choice == '5':
             crm.get_items_sold_between
             # print here

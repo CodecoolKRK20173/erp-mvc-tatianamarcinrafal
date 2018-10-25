@@ -1,6 +1,7 @@
 """ Terminal view module """
 import os
 
+
 def print_table(table, title_list):
     """
     Prints table with data.
@@ -21,9 +22,11 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
+
    
     table.insert(0, title_list)
     table_with_titles = table
+
     how_many_column = len(title_list)
     the_logest_item_in_each_column = []
     empty_list = True
@@ -66,12 +69,12 @@ def print_result(result, label=''):
 
     # your code
     if type(result) == str:
-        os.system("clear")
+        os.system('clear')
         if label:
             print(f'{label}')
         print(f'{result}')
     elif type(result) == list:
-        os.system("clear")
+        os.system('clear')
         if label:
             print(label)
         for item in result:
