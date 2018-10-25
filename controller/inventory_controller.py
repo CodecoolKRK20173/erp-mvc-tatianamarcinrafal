@@ -4,6 +4,7 @@ from model.inventory import inventory
 import model
 from model import data_manager
 from controller import common
+import os
 
 labels = ['Id', 'Name of item', 'Manufacturer', 'Year of purchase',
           'Used years']
@@ -19,21 +20,23 @@ def run():
     Returns:
         None
     """
+    os.system("clear")
     options = ['Add item', 'Edit item', 'Remove item', 'Which items have not exceeded their durability yet',
                'What are the average durability times for each manufacturer']
     link_to_csv = 'model/inventory/inventory.csv'
     common_options = ['Name of item: ', 'Manufacturer: ', 'Year of purchase: ',
                       'Years it can be used: ']
-
+    title_list = ["Id", "Name", "Manufacturer", "Year of purchase", "Years it can be used"]
     choice = None
     while choice != "0":
+        terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
         if choice == "1":
             common.add(link_to_csv, common_options)
         elif choice == "2":
             common.update(link_to_csv, common_options)
         elif choice == "3":
-            common.remove(link_to_csv, common_options)
+            common.remove(link_to_csv)
         elif choice == "4":
             terminal_view.print_table(inventory.get_available_items(table), labels)
         elif choice == "5":

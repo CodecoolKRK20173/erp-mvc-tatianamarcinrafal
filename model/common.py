@@ -18,7 +18,7 @@ def add(table, record):
     Returns:
         list: Table with a new record
     """
-    record.insert(0, common.generate_random(record))
+    record.insert(0, generate_random(record))
     table.append(record)
 
     return table

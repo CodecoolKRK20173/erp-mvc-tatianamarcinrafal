@@ -3,6 +3,7 @@ from view import terminal_view
 from model.hr import hr
 from controller import common
 from model import data_manager
+import os
 
 
 def run():
@@ -14,17 +15,20 @@ def run():
     Returns:
         None
     """
+    os.system("clear")
     options = ["Add", "Remove", "Update", "Oldest person", "Persons closest to average"]
     common_options = ["Name: ", "Year: "]
     file = "model/hr/persons.csv"
-    table = common.get_table_from(file)
+    table = data_manager.get_table_from_file(file)
     choice = None
+    title_list = ["Id", "Name", "Year"]
     while choice != '0':
-        choice = terminal_view.get_choice(options)
+        terminal_view.print_table(table, title_list)
+        choice = terminal_view.get_choice_submenu(options)
         if choice == '1':
             common.add(file, common_options)
         if choice == '2':
-            common.remove(file, common_options)
+            common.remove(file)
         if choice == '3':
             common.update(file, common_options)
         if choice == '4':
