@@ -25,9 +25,7 @@ def add(table, record):
         list: Table with a new record
     """
     # your code
-    os.system("clear")
-    record.insert(0, common.generate_random(record))
-    table.append(record)
+
 
     return table
 
@@ -45,11 +43,7 @@ def remove(table, id_):
     """
 
     # your code
-    os.system("clear")
-    for row in table:
-        test = None
-    if row[0] == id_[0]:
-        table.remove(row)
+
 
     return table
 
@@ -68,11 +62,7 @@ def update(table, id_, record):
     """
 
     # your code
-    os.system("clear")
-    record.insert(0, id_[0])
-    for row in table:
-        if row[0] == id_[0]:
-            table[table.index(row)] = record[:]
+
 
     return table
 
@@ -91,6 +81,36 @@ def get_longest_name_id(table):
             string: id of the longest name (if there are more than one, return
                 the last by alphabetical order of the names)
         """
+    longest = 0
+    user_id = ""
+    for row in table:
+        name = row[1]
+        name = len(str(name))
+        if name > longest:
+            longest = name
+            user_id = str(row[0])
+    the_same_longest_name = []
+    user_id_longest_name = []
+    if longest != 0:
+        for row in table:
+            name = row[1]
+            id_ = row[0]
+            if len(str(name)) == longest:
+                the_same_longest_name.append(str(name))
+                user_id_longest_name.append(str(id_))
+    if the_same_longest_name and user_id_longest_name:
+        name_id = list(zip(the_same_longest_name,user_id_longest_name))
+        id_alph_name = ""
+        alph_name = ""
+        for pair in name_id:
+            longest_name = pair[0]
+            longest_id = pair[1]
+            if longest_name > alph_name:
+                alph_name = longest_name
+                id_alph_name = longest_id
+
+    return id_alph_name
+
 
     # your code
 
@@ -107,5 +127,13 @@ def get_subscribed_emails(table):
         Returns:
             list: list of strings (where a string is like "email;name")
         """
-
-    # your code
+    list_subscribed = []
+    for row in table:
+        subscribed = row[3]
+        number = str(1)       
+        if '1' in subscribed:
+            name = str(row[1])
+            email = str(row[2])
+            customers = (email + ";" + name)
+            list_subscribed.append(customers)
+    return list_subscribed

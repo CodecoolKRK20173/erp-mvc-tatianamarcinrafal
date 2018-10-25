@@ -8,7 +8,7 @@ from model import common              #pomocy za dużo importów
 def get_table_from(file):
     table = data_manager.get_table_from_file(file)
     return table
-
+#changed "model/hr/persons.csv" on file
 
 def save(file, table):
     data_manager.write_table_to_file(file, table)

@@ -23,6 +23,10 @@ def print_table(table, title_list):
         None: This function doesn't return anything it only prints to console.
     """
 
+   
+    table.insert(0, title_list)
+    table_with_titles = table
+
     how_many_column = len(title_list)
     the_logest_item_in_each_column = []
     empty_list = True
@@ -48,6 +52,7 @@ def print_table(table, title_list):
             a = the_logest_item_in_each_column[i]+how_much_free_space_around_word
             print(row[i].center(a, ' '), end=' | ')
         print('\n' + '-'*width_table)
+    table.remove(title_list)
 
 
 def print_result(result, label=''):
@@ -142,13 +147,14 @@ def get_inputs(list_labels, title):
 
 
 def get_choice(options):
+    os.system("clear")
     print_menu("Main menu", options, "Exit program")
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]
 
 
 def get_choice_submenu(options):
-    print_menu("Submenu", options, "Exit program")
+    print_menu("Submenu", options, "Return to main menu")
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]
 

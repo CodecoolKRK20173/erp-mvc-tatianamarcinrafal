@@ -4,52 +4,45 @@ from model.crm import crm
 from controller import common
 from model import data_manager
 import os
+from time import sleep
 
 def run():
+    """
+    Starts this module and displays its menu.
+     * User can access default special features from here.
+     * User can go back to main menu from here.
+
+    Returns:
+        None
+    """
+    options = ["Add data", "Remove data", "Update data", "ID of the customer with the Longest name", "Newsletter subscribtion"]
+    common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
+    link_for_csv = "model/crm/customers.csv"
     title_list = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
-    options = ["Show table","Add data", "Remove data", "Update data", "ID of the customer with the Longest name", "Newsletter subscribtion"]
-    #common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
-    link_for_csv = "model/crm/customers.csv"
-    choice = None
+    choice = None  
     while choice != '0':
-        choice = terminal_view.get_choice(options)
+        os.system("clear")
+        table = data_manager.get_table_from_file(link_for_csv)
+        terminal_view.print_table(table, title_list)        
+        choice = terminal_view.get_choice_submenu(options)       
         if choice == '1':
-            os.system("clear")
-            table = data_manager.get_table_from_file(link_for_csv)    
-            terminal_view.print_table(table, title_list)
+            common.add(link_for_csv, common_options)
         elif choice == '2':
-            add()
+            common.remove(link_for_csv)
         elif choice == '3':
-            remove()
+            common.update(link_for_csv, common_options)
         elif choice == '4':
-            update()
+            result = crm.get_longest_name_id(table)
+            os.system("clear")         
+            terminal_view.print_result(result, 'ID of the customer with the Longest name: ')
+            choice = terminal_view.get_choice_submenu(options)          
         elif choice == '5':
-            crm.get_longest_name_id(table)
-        elif choice == '6':
-            crm.get_subscribed_emails(table)
+            result = crm.get_subscribed_emails(table)
+            os.system("clear")
+            terminal_view.print_result(result, 'Customers who has subscribed to the newsletter: ')
+            choice = terminal_view.get_choice_submenu(options)
         else:
-            terminal_view.print_error_message("There is no such choice.")
-
-def add():
-    link_for_csv = "model/crm/customers.csv"
-    table = data_manager.get_table_from_file(link_for_csv)
-    title_list = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
-    record = terminal_view.get_inputs(title_list, "Please provide following data:")
-    crm.add(table, record)
-    data_manager.write_table_to_file(link_for_csv, table)
-
-def remove():
-    link_for_csv = "model/crm/customers.csv"
-    table = data_manager.get_table_from_file(link_for_csv)
-    id_ = terminal_view.get_inputs(["ID: "], "Please provide ID you want to remove")
-    crm.remove(table, id_)
-    data_manager.write_table_to_file(link_for_csv, table)
-
-def update():
-    link_for_csv = "model/crm/customers.csv"
-    table = data_manager.get_table_from_file(link_for_csv)
-    id_ = terminal_view.get_inputs(["ID: "], "Please provide ID you want to edit")
-    title_list = ["Name: ", "Day: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
-    record = terminal_view.get_inputs(title_list, "Please provide following data:")
-    crm.update(table, id_, record)
-    data_manager.write_table_to_file(link_for_csv, table)
+            os.system("clear")
+            terminal_view.print_error_message("There is no such choice, please try again")
+            sleep(1)
+            choice = terminal_view.get_choice_submenu(options) 
