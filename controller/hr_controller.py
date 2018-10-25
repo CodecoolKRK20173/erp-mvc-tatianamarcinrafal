@@ -43,7 +43,6 @@ def run():
             terminal_view.print_result(hr.get_persons_closest_to_average(table))
             dont_clear = True
             # print here
-
         else:
             terminal_view.print_error_message("There is no such choice.")
 
