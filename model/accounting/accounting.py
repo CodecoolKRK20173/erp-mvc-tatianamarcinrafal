@@ -89,6 +89,13 @@ def which_year_max(table):
     Returns:
         number
     """
+    name = []
+    for row in table:
+        name_table = row[5]
+        if name_table not in row:
+            name_table.append(name)
+    
+    
 
     # your code
 

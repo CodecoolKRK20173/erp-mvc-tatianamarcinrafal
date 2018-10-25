@@ -91,6 +91,34 @@ def get_longest_name_id(table):
             string: id of the longest name (if there are more than one, return
                 the last by alphabetical order of the names)
         """
+    longest = 0
+    user_id = ""
+    for row in table:
+        name = row[1]
+        name = len(str(name))
+        if name > longest:
+            longest = name
+            user_id = str(row[0])
+    the_same_longest_name = []
+    user_id_longest_name = []
+    if longest != 0:
+        for row in table:
+            name = row[1]
+            id_ = row[0]
+            if len(str(name)) == longest:
+                the_same_longest_name.append(str(name))
+                user_id_longest_name.append(str(id_))
+    if the_same_longest_name:
+        list_name_id = [the_same_longest_name, user_id_longest_name]
+        for user_name, user_id in list_name_id[0] and list_name_id[0]:
+            sort_name = ""
+            sort_id = ""
+            if user_name > sort_name:
+                sort_name = user_name
+                sort_id = user_id
+                #the_same_longest_name.insert(0,user_name)
+    return sort_id
+
 
     # your code
 
