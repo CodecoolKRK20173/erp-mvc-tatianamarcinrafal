@@ -12,11 +12,12 @@ def run():
     file = "model/sales/sales.csv"
     title_list = ["ID", "Title", "Price", "Month", "Day", "Year"]
     choice = None
+    options_which_no_table_show = ['4', '5']
     while choice != '0':
-        os.system("clear")
         table = data_manager.get_table_from_file(file)
-        terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
+        if choice not in options_which_no_table_show:
+            terminal_view.print_table(table, title_list)
         if choice == '1':
             common.add(file, common_options)
         if choice == '2':
@@ -30,5 +31,5 @@ def run():
             crm.get_items_sold_between
             # print here
 
-        else:
-            terminal_view.print_error_message("There is no such choice.")
+        # else:
+        #     terminal_view.print_error_message("There is no such choice.")
