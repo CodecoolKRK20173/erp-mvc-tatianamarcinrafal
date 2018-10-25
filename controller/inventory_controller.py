@@ -22,16 +22,18 @@ def run():
     options = ['Add item', 'Edit item', 'Remove item', 'Which items have not exceeded their durability yet',
                'What are the average durability times for each manufacturer']
     link_to_csv = 'model/inventory/inventory.csv'
+    common_options = ['Name of item: ', 'Manufacturer: ', 'Year of purchase: ',
+                      'Years it can be used: ']
 
     choice = None
     while choice != "0":
         choice = terminal_view.get_choice_submenu(options)
         if choice == "1":
-            add_item(link_to_csv)
+            common.add(link_to_csv, common_options)
         elif choice == "2":
-            update_item(link_to_csv)
+            common.update(link_to_csv, common_options)
         elif choice == "3":
-            inventory_controller.run()
+            common.remove(link_to_csv, common_options)
         elif choice == "4":
             terminal_view.print_table(inventory.get_available_items(table), labels)
         elif choice == "5":
@@ -63,4 +65,3 @@ def update_item(link_to_csv, labels):
     for record in table:
         if str(record[0]) == what_id_edit[0]:
             terminal_view.print_result(record, '')  # print list
-
