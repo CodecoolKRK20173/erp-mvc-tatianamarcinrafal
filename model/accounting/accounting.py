@@ -27,8 +27,6 @@ def add(table, record):
     Returns:
         list: Table with a new record
     """
-    record.insert(0, common.generate_random(record))
-    table.append(record)
 
     # your code
 
@@ -48,10 +46,6 @@ def remove(table, id_):
     """
 
     # your code
-    for row in table:
-        test = None
-    if row[0] == id_[0]:
-        table.remove(row)
 
     return table
 
@@ -68,10 +62,6 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-    record.insert(0, id_[0])
-    for row in table:
-        if row[0] == id_[0]:
-            table[table.index(row)] = record[:]  
 
     return table
 
@@ -88,14 +78,34 @@ def which_year_max(table):
 
     Returns:
         number
+
     """
-    name = []
+    year_profit = {}
     for row in table:
-        name_table = row[5]
-        if name_table not in row:
-            name_table.append(name)
-    
-    
+        year = row[3]
+        money = row[5]
+        profit = row[4]
+        if year not in year_profit.keys():
+            if profit == "in":
+                year_profit[year] = int(money)
+            elif profit == "out":
+                year_profit[year] = 0 - int(money)
+        else:
+            if profit == "in":
+                year_profit[year] += int(money)
+            elif profit == "out":
+                year_profit[year] -= int(money)
+    if year_profit:
+        year_profit_list = tuple(year_profit.items())
+        year_highest_profit = 0
+        highest_profit = 0
+        for pair in year_profit_list:
+            if pair[1] > highest_profit:
+                highest_profit = pair[1]
+                year_highest_profit = pair[0] 
+
+
+    return year_highest_profit
 
     # your code
 
