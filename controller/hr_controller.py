@@ -21,24 +21,28 @@ def run():
     file = "model/hr/persons.csv"
     title_list = ["Id", "Name", "Year"]
     choice = None
+    dont_clear = False
     while choice != '0':
-        os.system("clear")
-        table = data_manager.get_table_from_file(file)
-        terminal_view.print_table(table, title_list)
+        if not dont_clear:
+            os.system("clear")
+            table = data_manager.get_table_from_file(file)
+            terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
+        dont_clear = False
         if choice == '1':
             common.add(file, common_options)
-        if choice == '2':
+        elif choice == '2':
             common.remove(file)
-        if choice == '3':
+        elif choice == '3':
             common.update(file, common_options)
-        if choice == '4':
-            hr.get_oldest_person(table)
+        elif choice == '4':
+            terminal_view.print_result(hr.get_oldest_person(table))
+            dont_clear = True
             # print here
-        if choice == '5':
-            hr.get_persons_closest_to_average(table)
+        elif choice == '5':
+            terminal_view.print_result(hr.get_persons_closest_to_average(table))
+            dont_clear = True
             # print here
-
         else:
             terminal_view.print_error_message("There is no such choice.")
 
