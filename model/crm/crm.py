@@ -108,16 +108,9 @@ def get_longest_name_id(table):
             if len(str(name)) == longest:
                 the_same_longest_name.append(str(name))
                 user_id_longest_name.append(str(id_))
-    if the_same_longest_name:
-        list_name_id = [the_same_longest_name, user_id_longest_name]
-        for user_name, user_id in list_name_id[0] and list_name_id[0]:
-            sort_name = ""
-            sort_id = ""
-            if user_name > sort_name:
-                sort_name = user_name
-                sort_id = user_id
-                #the_same_longest_name.insert(0,user_name)
-    return sort_id
+    name_id = tuple(zip(the_same_longest_name,user_id_longest_name))
+
+    return name_id
 
 
     # your code

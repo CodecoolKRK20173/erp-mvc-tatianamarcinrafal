@@ -65,10 +65,12 @@ def print_result(result, label=''):
 
     # your code
     if type(result) == str:
+        os.system("clear")
         if label:
             print(f'{label}')
         print(f'{result}')
     elif type(result) == list:
+        os.system("clear")
         if label:
             print(label)
         for item in result:
