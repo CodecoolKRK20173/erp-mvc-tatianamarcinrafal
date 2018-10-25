@@ -49,6 +49,7 @@ def print_table(table, title_list):
             a = the_logest_item_in_each_column[i]+how_much_free_space_around_word
             print(row[i].center(a, ' '), end=' | ')
         print('\n' + '-'*width_table)
+    table.remove(title_list)
 
 
 def print_result(result, label=''):
@@ -150,7 +151,7 @@ def get_choice(options):
 
 
 def get_choice_submenu(options):
-    print_menu("Submenu", options, "Exit program")
+    print_menu("Submenu", options, "Return to main menu")
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]
 

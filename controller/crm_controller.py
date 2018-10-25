@@ -14,14 +14,14 @@ def run():
     Returns:
         None
     """
-    os.system("clear")
     options = ["Add data", "Remove data", "Update data", "ID of the customer with the Longest name", "Newsletter subscribtion"]
     common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
     link_for_csv = "model/crm/customers.csv"
-    table = data_manager.get_table_from_file(link_for_csv)
     title_list = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
     choice = None  
-    while choice != '0':    
+    while choice != '0':
+        os.system("clear")
+        table = data_manager.get_table_from_file(link_for_csv)
         terminal_view.print_table(table, title_list)        
         choice = terminal_view.get_choice_submenu(options)       
         if choice == '1':

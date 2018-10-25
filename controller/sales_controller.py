@@ -7,14 +7,14 @@ import os
 
 
 def run():
-    os.system("clear")
     options = ["Add", "Remove", "Update", "Lowest price item ID[in progress]", "Items sold between[in progress]"]
     common_options = ["Title: ", "Price: ", "Month: ", "Day: ", "Year: "]
     file = "model/sales/sales.csv"
-    table = data_manager.get_table_from_file(file)
-    choice = None
     title_list = ["ID", "Title", "Price", "Month", "Day", "Year"]
+    choice = None
     while choice != '0':
+        os.system("clear")
+        table = data_manager.get_table_from_file(file)
         terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
         if choice == '1':
