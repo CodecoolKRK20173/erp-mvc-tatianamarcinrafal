@@ -1,5 +1,5 @@
 """ Terminal view module """
-
+import os
 
 def print_table(table, title_list):
     """
@@ -140,6 +140,7 @@ def get_inputs(list_labels, title):
 
 
 def get_choice(options):
+    os.system("clear")
     print_menu("Main menu", options, "Exit program")
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]

@@ -6,26 +6,33 @@ from model import data_manager
 import os
 
 def run():
+    """
+    Starts this module and displays its menu.
+     * User can access default special features from here.
+     * User can go back to main menu from here.
+
+    Returns:
+        None
+    """
+    os.system("clear")
     title_list = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
-    options = ["Show table","Add data", "Remove data", "Update data", "ID of the customer with the Longest name", "Newsletter subscribtion"]
-    #common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
+    options = ["Add data", "Remove data", "Update data", "ID of the customer with the Longest name", "Newsletter subscribtion"]
     link_for_csv = "model/crm/customers.csv"
     choice = None
     while choice != '0':
-        choice = terminal_view.get_choice(options)
+        table = data_manager.get_table_from_file(link_for_csv)    
+        terminal_view.print_table(table, title_list)        
+        choice = terminal_view.get_choice_submenu(options)
         if choice == '1':
-            os.system("clear")
-            table = data_manager.get_table_from_file(link_for_csv)    
-            terminal_view.print_table(table, title_list)
-        elif choice == '2':
             add()
-        elif choice == '3':
+        elif choice == '2':
             remove()
-        elif choice == '4':
+        elif choice == '3':
             update()
+        elif choice == '4':
+            table = data_manager.get_table_from_file(link_for_csv)   
+            print(crm.get_longest_name_id(table))
         elif choice == '5':
-            crm.get_longest_name_id(table)
-        elif choice == '6':
             crm.get_subscribed_emails(table)
         else:
             terminal_view.print_error_message("There is no such choice.")
