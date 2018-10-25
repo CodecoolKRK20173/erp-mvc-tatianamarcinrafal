@@ -4,6 +4,7 @@ from model.crm import crm
 from controller import common
 from model import data_manager
 import os
+from time import sleep
 
 def run():
     """
@@ -36,6 +37,12 @@ def run():
             terminal_view.print_result(result, 'ID of the customer with the Longest name: ')
             choice = terminal_view.get_choice_submenu(options)          
         elif choice == '5':
-            crm.get_subscribed_emails(table)
+            result = crm.get_subscribed_emails(table)
+            os.system("clear")
+            terminal_view.print_result(result, 'Customers who has subscribed to the newsletter: ')
+            choice = terminal_view.get_choice_submenu(options)
         else:
-            terminal_view.print_error_message("There is no such choice.") 
+            os.system("clear")
+            terminal_view.print_error_message("There is no such choice, please try again")
+            sleep(1)
+            choice = terminal_view.get_choice_submenu(options) 
