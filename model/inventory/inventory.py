@@ -80,6 +80,14 @@ def get_available_items(table):
     Returns:
         list: list of lists (the inner list contains the whole row with their actual data types)
     """
+    table_with_available_items = []
+    actual_year = 2018
+    for record in table:
+        durability_year = int(record[3])+int(record[4])
+        if durability_year >= actual_year:
+            table_with_available_items.append(record)
+
+    return table_with_available_items
 
     # your code
 
@@ -94,5 +102,29 @@ def get_average_durability_by_manufacturers(table):
     Returns:
         dict: a dictionary with this structure: { [manufacturer] : [avg] }
     """
+    dict_avg_durability = {}
+    list_of_manufactures = []
+    for record in table:
+        list_of_manufactures.append(record[2])
+    list_of_manufactures = set(list_of_manufactures)
 
-    # your code
+    list_without_doble_manuf = []
+    for manuf in list_of_manufactures:
+        if manuf not in list_without_doble_manuf:
+            list_without_doble_manuf.append(manuf)
+
+    list_with_avg_durability = []
+    for manufactures in list_without_doble_manuf:
+        sum_durability = 0
+        i = 0
+        for record in table:
+            if record[2] == manufactures:
+                i += 1
+                sum_durability += int(record[4])
+        avg = sum_durability/i
+        list_with_avg_durability.append(avg)
+
+    for index in range(len(list_without_doble_manuf)):
+        dict_avg_durability[list_without_doble_manuf[index]] = list_with_avg_durability[index]
+
+    return dict_avg_durability

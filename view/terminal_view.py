@@ -1,5 +1,5 @@
 """ Terminal view module """
-
+import os
 
 def print_table(table, title_list):
     """
@@ -21,9 +21,8 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
+   
 
-    table.insert(0, title_list)
-    table_with_titles = table
     how_many_column = len(title_list)
     the_logest_item_in_each_column = []
     empty_list = True
@@ -74,6 +73,7 @@ def print_result(result, label=''):
         for item in result:
             print(item)
     elif type(result) == dict:
+        os.system('clear')
         if label:
             print(label)
         for key, value in result.items():
