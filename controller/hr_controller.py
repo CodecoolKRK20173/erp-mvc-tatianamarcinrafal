@@ -2,6 +2,8 @@
 from view import terminal_view
 from model.hr import hr
 from controller import common
+from model import data_manager
+
 
 def run():
     """
@@ -12,5 +14,26 @@ def run():
     Returns:
         None
     """
+    options = ["Add", "Remove", "Update", "Oldest person", "Persons closest to average"]
+    common_options = ["Name: ", "Year: "]
+    file = "model/hr/persons.csv"
+    table = common.get_table_from(file)
+    choice = None
+    while choice != '0':
+        choice = terminal_view.get_choice(options)
+        if choice == '1':
+            common.add(file, common_options)
+        if choice == '2':
+            common.remove(file, common_options)
+        if choice == '3':
+            common.update(file, common_options)
+        if choice == '4':
+            hr.get_oldest_person(table)
+            # print here
+        if choice == '5':
+            hr.get_persons_closest_to_average(table)
+            # print here
 
-    # your code
+        else:
+            terminal_view.print_error_message("There is no such choice.")
+

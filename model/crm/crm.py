@@ -11,7 +11,7 @@ Data table structure:
 # everything you'll need is imported:
 from model import data_manager
 from model import common
-
+import os
 
 def add(table, record):
     """
@@ -25,6 +25,9 @@ def add(table, record):
         list: Table with a new record
     """
     # your code
+    os.system("clear")
+    record.insert(0, common.generate_random(record))
+    table.append(record)
 
     return table
 
@@ -42,6 +45,11 @@ def remove(table, id_):
     """
 
     # your code
+    os.system("clear")
+    for row in table:
+        test = None
+    if row[0] == id_[0]:
+        table.remove(row)
 
     return table
 
@@ -60,6 +68,11 @@ def update(table, id_, record):
     """
 
     # your code
+    os.system("clear")
+    record.insert(0, id_[0])
+    for row in table:
+        if row[0] == id_[0]:
+            table[table.index(row)] = record[:]
 
     return table
 

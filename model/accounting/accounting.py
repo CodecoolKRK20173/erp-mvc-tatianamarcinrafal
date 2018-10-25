@@ -27,19 +27,8 @@ def add(table, record):
     Returns:
         list: Table with a new record
     """
-    file_open = open(filename)
-    reader = csv.reader(file_open)
-    for row in reader:
-        file_open_list = row
-    table = open("items.csv")
-    record = []
-    id_input = generate_random(table)
-    month_number = str(input("Enter a namer of month: "))
-    day_number = str(input("Enter a number of day: "))
-    year_number = str(input("Enter a number of year: "))
-    type_string = str(input("Selected operation 1. income money, 2. outflow money"))
-    amount_int = str(input("Enter an amount: "))
-    record.append()
+    record.insert(0, common.generate_random(record))
+    table.append(record)
 
     # your code
 
@@ -59,6 +48,10 @@ def remove(table, id_):
     """
 
     # your code
+    for row in table:
+        test = None
+    if row[0] == id_[0]:
+        table.remove(row)
 
     return table
 
@@ -75,8 +68,10 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-
-    # your code
+    record.insert(0, id_[0])
+    for row in table:
+        if row[0] == id_[0]:
+            table[table.index(row)] = record[:]  
 
     return table
 

@@ -8,61 +8,10 @@ Data table structure:
 """
 
 # everything you'll need is imported:
+
+
 from model import data_manager
 from model import common
-
-
-
-def add(table, record):
-    """
-    Add new record to table
-
-    Args:
-        table (list): table to add new record to
-        record (list): new record
-
-    Returns:
-        list: Table with a new record
-    """
-    # your code
-
-    return table
-
-
-def remove(table, id_):
-    """
-    Remove a record with a given id from the table.
-
-    Args:
-        table (list): table to remove a record from
-        id_ (str): id of a record to be removed
-
-    Returns:
-        list: Table without specified record.
-    """
-
-    # your code
-
-    return table
-
-
-def update(table, id_, record):
-    """
-    Updates specified record in the table.
-
-    Args:
-        table: list in which record should be updated
-        id_ (str): id of a record to update
-        record (list): updated record
-
-    Returns:
-        list: table with updated record
-    """
-
-    # your code
-
-    return table
-
 
 # special functions:
 # ------------------
@@ -78,7 +27,19 @@ def get_oldest_person(table):
         list: A list of strings (name or names if there are two more with the same value)
     """
 
-    # your code
+
+    comparision_yr = 99999
+    oldest_members = ['']
+    for element in table:
+        if int(element[2]) < comparision_yr:
+            comparision_yr = int(element[2])
+            oldest_members[0] = element[1]
+            t = 1
+        elif int(element[2]) == comparision_yr:
+            oldest_members.append(element[1])
+            
+    return oldest_members
+
 
 
 def get_persons_closest_to_average(table):
@@ -91,5 +52,18 @@ def get_persons_closest_to_average(table):
     Returns:
         list: list of strings (name or names if there are two more with the same value)
     """
-
-    # your code
+    sum = 0
+    for element in table:
+        sum += int(element[2])
+    avg = sum / len(table)
+     
+    lowest_difference = 100
+    closest_members = ['']
+    for element in table:
+        if abs(int(element[2]) - avg) < lowest_difference:
+            lowest_difference = abs(int(element[2]) - avg)
+            closest_members[0] = element[1]
+        elif int(element[2]) - avg == lowest_difference:
+            closest_members.append(element[1])
+        
+    return closest_members

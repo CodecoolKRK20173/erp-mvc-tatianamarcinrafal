@@ -63,3 +63,4 @@ def update_item(link_to_csv, labels):
     for record in table:
         if str(record[0]) == what_id_edit[0]:
             terminal_view.print_result(record, '')  # print list
+
