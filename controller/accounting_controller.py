@@ -4,6 +4,7 @@ from model.accounting import accounting
 from controller import common
 from model import data_manager
 import os
+from time import sleep
 
 def run():
     """
@@ -14,7 +15,7 @@ def run():
     Returns:
         None
     """
-    options = ["Add data", "Remove data", "Update data", "Year with the highest profit", "The average profit in a given year"]
+    options = ["Add data", "Remove data", "Update data", "Year with the highest profit"]
     common_options = ["Month: ", "Day: ", "Year: ", "Income (enter: 'in') or Outflow(enter:'out') money: ", "Amount: "]
     link_for_csv = 'model/accounting/items.csv'
     title_list = ["ID", "Month", "Day", "Year", "Income or Outflow money", "Amount"]
@@ -31,11 +32,12 @@ def run():
         elif choice == "3":
             common.update(link_for_csv, common_options)
         elif choice == "4":
-            #table = data_manager.get_table_from_file(link_for_csv)            
-            print(accounting.which_year_max(table))
-        elif choice == "5":
-            #table = data_manager.get_table_from_file(link_for_csv)
-            year = input("Enter the year: ")
-            #print(accounting.avg_amount(table, year))
+            result = accounting.which_year_max(table)            
+            os.system("clear")
+            terminal_view.print_result(result, 'Year with the highest profit: ')
+            choice = terminal_view.get_choice_submenu(options)
         else:
-            terminal_view.print_error_message("There is no such choice.")
+            os.system("clear")
+            terminal_view.print_error_message("There is no such choice, please try again")
+            sleep(1)
+            choice = terminal_view.get_choice_submenu(options)
