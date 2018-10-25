@@ -2,16 +2,21 @@
 from view import terminal_view
 from model.sales import sales
 from controller import common
+from model import data_manager
+import os
 
 
 def run():
+    os.system("clear")
     options = ["Add", "Remove", "Update", "Lowest price item ID[in progress]", "Items sold between[in progress]"]
     common_options = ["Title: ", "Price: ", "Month: ", "Day: ", "Year: "]
     file = "model/sales/sales.csv"
-    table = common.get_table_from(file)
+    table = data_manager.get_table_from_file(file)
     choice = None
+    title_list = ["ID", "Title", "Price", "Month", "Day", "Year"]
     while choice != '0':
-        choice = terminal_view.get_choice(options)
+        terminal_view.print_table(table, title_list)
+        choice = terminal_view.get_choice_submenu(options)
         if choice == '1':
             common.add(file, common_options)
         if choice == '2':

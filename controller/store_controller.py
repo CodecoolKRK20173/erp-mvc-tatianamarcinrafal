@@ -2,20 +2,25 @@
 from model.store import store
 from view import terminal_view
 from controller import common
+from model import data_manager
+import os
 
 
 def run():
+    os.system("clear")
     options = ["Add", "Remove", "Update", "Count by manufacturer[in progress]", "Average by manufacturer[in progress]"]
     common_options = ["Title: ", "Manufacturer: ", "Price: ", "In stock: "]
     file = "model/store/games.csv"
-    table = common.get_table_from(file)
+    title_list = ["Id", "Title", "Manufacturer", "Price", "In stock"]
+    table = data_manager.get_table_from_file(file)
     choice = None
     while choice != '0':
-        choice = terminal_view.get_choice(options)
+        terminal_view.print_table(table, title_list)
+        choice = terminal_view.get_choice_submenu(options)
         if choice == '1':
             common.add(file, common_options)
         if choice == '2':
-            common.remove(file, common_options)
+            common.remove(file)
         if choice == '3':
             common.update(file, common_options)
         if choice == '4':
