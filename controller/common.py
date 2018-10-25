@@ -6,7 +6,7 @@ from model import common              #pomocy za dużo importów
 
 
 def get_table_from(file):
-    table = data_manager.get_table_from_file("model/hr/persons.csv")
+    table = data_manager.get_table_from_file(file)
     return table
 
 
