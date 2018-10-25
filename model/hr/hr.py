@@ -34,7 +34,6 @@ def get_oldest_person(table):
         if int(element[2]) < comparision_yr:
             comparision_yr = int(element[2])
             oldest_members[0] = element[1]
-            t = 1
         elif int(element[2]) == comparision_yr:
             oldest_members.append(element[1])
             

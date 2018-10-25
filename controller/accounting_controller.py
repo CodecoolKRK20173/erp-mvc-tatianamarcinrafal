@@ -14,14 +14,14 @@ def run():
     Returns:
         None
     """
-    os.system("clear")
     options = ["Add data", "Remove data", "Update data", "Year with the highest profit", "The average profit in a given year"]
     common_options = ["Month: ", "Day: ", "Year: ", "Income (enter: 'in') or Outflow(enter:'out') money: ", "Amount: "]
     link_for_csv = 'model/accounting/items.csv'
-    table = data_manager.get_table_from_file(link_for_csv)
     title_list = ["ID", "Month", "Day", "Year", "Income or Outflow money", "Amount"]
     choice = None
     while choice != "0":
+        os.system("clear")
+        table = data_manager.get_table_from_file(link_for_csv)
         terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
         if choice == "1":

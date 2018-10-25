@@ -15,14 +15,15 @@ def run():
     Returns:
         None
     """
-    os.system("clear")
+    # os.system("clear")
     options = ["Add", "Remove", "Update", "Oldest person", "Persons closest to average"]
     common_options = ["Name: ", "Year: "]
     file = "model/hr/persons.csv"
-    table = data_manager.get_table_from_file(file)
-    choice = None
     title_list = ["Id", "Name", "Year"]
+    choice = None
     while choice != '0':
+        os.system("clear")
+        table = data_manager.get_table_from_file(file)
         terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
         if choice == '1':

@@ -12,9 +12,10 @@ def run():
     common_options = ["Title: ", "Manufacturer: ", "Price: ", "In stock: "]
     file = "model/store/games.csv"
     title_list = ["Id", "Title", "Manufacturer", "Price", "In stock"]
-    table = data_manager.get_table_from_file(file)
     choice = None
     while choice != '0':
+        os.system("clear")
+        table = data_manager.get_table_from_file(file)
         terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
         if choice == '1':

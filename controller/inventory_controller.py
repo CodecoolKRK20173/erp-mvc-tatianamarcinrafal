@@ -20,7 +20,6 @@ def run():
     Returns:
         None
     """
-    os.system("clear")
     options = ['Add item', 'Edit item', 'Remove item', 'Which items have not exceeded their durability yet',
                'What are the average durability times for each manufacturer']
     link_to_csv = 'model/inventory/inventory.csv'
@@ -29,6 +28,7 @@ def run():
     title_list = ["Id", "Name", "Manufacturer", "Year of purchase", "Years it can be used"]
     choice = None
     while choice != "0":
+        os.system("clear")
         terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
         if choice == "1":
