@@ -2,28 +2,54 @@
 from view import terminal_view
 from model.crm import crm
 from controller import common
+from model import data_manager
+import os
 
 def run():
-    options = ["Add", "Remove", "Update", "Longest name id [in progress]", "Subscribed e-mails[in progress]"]
-    common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion[1 - yes/ 0 - no]: "]
-    file = "model/crm/customers.csv"
-    table = common.get_table_from(file)
+    title_list = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    options = ["Show table","Add data", "Remove data", "Update data", "ID of the customer with the Longest name", "Newsletter subscribtion"]
+    #common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
+    link_for_csv = "model/crm/customers.csv"
     choice = None
     while choice != '0':
         choice = terminal_view.get_choice(options)
         if choice == '1':
-            common.add(file, common_options)
-        if choice == '2':
-            common.remove(file)
-        if choice == '3':
-            common.update(file, common_options)
-        if choice == '4':
+            os.system("clear")
+            table = data_manager.get_table_from_file(link_for_csv)    
+            terminal_view.print_table(table, title_list)
+        elif choice == '2':
+            add()
+        elif choice == '3':
+            remove()
+        elif choice == '4':
+            update()
+        elif choice == '5':
             crm.get_longest_name_id(table)
-            # print here
-        if choice == '5':
+        elif choice == '6':
             crm.get_subscribed_emails(table)
-            # print here
-
         else:
             terminal_view.print_error_message("There is no such choice.")
 
+def add():
+    link_for_csv = "model/crm/customers.csv"
+    table = data_manager.get_table_from_file(link_for_csv)
+    title_list = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
+    record = terminal_view.get_inputs(title_list, "Please provide following data:")
+    crm.add(table, record)
+    data_manager.write_table_to_file(link_for_csv, table)
+
+def remove():
+    link_for_csv = "model/crm/customers.csv"
+    table = data_manager.get_table_from_file(link_for_csv)
+    id_ = terminal_view.get_inputs(["ID: "], "Please provide ID you want to remove")
+    crm.remove(table, id_)
+    data_manager.write_table_to_file(link_for_csv, table)
+
+def update():
+    link_for_csv = "model/crm/customers.csv"
+    table = data_manager.get_table_from_file(link_for_csv)
+    id_ = terminal_view.get_inputs(["ID: "], "Please provide ID you want to edit")
+    title_list = ["Name: ", "Day: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
+    record = terminal_view.get_inputs(title_list, "Please provide following data:")
+    crm.update(table, id_, record)
+    data_manager.write_table_to_file(link_for_csv, table)
