@@ -22,7 +22,8 @@ def print_table(table, title_list):
         None: This function doesn't return anything it only prints to console.
     """
    
-
+    table.insert(0, title_list)
+    table_with_titles = table
     how_many_column = len(title_list)
     the_logest_item_in_each_column = []
     empty_list = True

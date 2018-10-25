@@ -35,7 +35,7 @@ def run():
         elif choice == "5":
             #table = data_manager.get_table_from_file(link_for_csv)
             year = input("Enter the year: ")
-            print(accounting.avg_amount(table, year)
+            print(accounting.avg_amount(table, year))
         else:
             terminal_view.print_error_message("There is no such choice.")
 
