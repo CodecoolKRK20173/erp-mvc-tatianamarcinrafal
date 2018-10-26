@@ -56,7 +56,7 @@ def get_persons_closest_to_average(table):
         sum += int(element[2])
     avg = sum / len(table)
      
-    lowest_difference = 100
+    lowest_difference = 10000
     closest_members = ['']
     for element in table:
         if abs(int(element[2]) - avg) < lowest_difference:
