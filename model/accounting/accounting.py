@@ -95,17 +95,18 @@ def which_year_max(table):
                 year_profit[year] += int(money)
             elif profit == "out":
                 year_profit[year] -= int(money)
+    year_highest_profit = 0
+    highest_profit = 0
     if year_profit:
         year_profit_list = tuple(year_profit.items())
-        year_highest_profit = 0
-        highest_profit = 0
         for pair in year_profit_list:
             if pair[1] > highest_profit:
                 highest_profit = pair[1]
                 year_highest_profit = pair[0] 
+    if year_highest_profit:
+        number = int(year_highest_profit)
 
-
-    return year_highest_profit
+    return number
 
     # your code
 
