@@ -90,6 +90,11 @@ def print_result(result, label=''):
         if label:
             print(f'{label}')
         print(f'{result}')
+    elif type(result) == float:
+        os.system('clear')
+        if label:
+            print(f'{label}')
+        print(f'{result}')
 
 
 def print_menu(title, list_options, exit_message):
