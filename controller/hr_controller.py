@@ -15,7 +15,6 @@ def run():
     Returns:
         None
     """
-    # os.system("clear")
     options = ["Add", "Remove", "Update", "Oldest person", "Persons closest to average"]
     common_options = ["Name: ", "Year: "]
     file = "model/hr/persons.csv"
