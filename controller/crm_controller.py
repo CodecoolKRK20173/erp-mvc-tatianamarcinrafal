@@ -19,30 +19,29 @@ def run():
     common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
     link_for_csv = "model/crm/customers.csv"
     title_list = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
-    choice = None  
+    choice = None
+    dont_clear = False  
     while choice != '0':
-        os.system("clear")
-        table = data_manager.get_table_from_file(link_for_csv)
-        terminal_view.print_table(table, title_list)        
-        choice = terminal_view.get_choice_submenu(options)       
+        if not dont_clear:
+            os.system("clear")
+            table = data_manager.get_table_from_file(link_for_csv)
+            terminal_view.print_table(table, title_list)        
+        choice = terminal_view.get_choice_submenu(options)
+        dont_clear = False        
         if choice == '1':
             common.add(link_for_csv, common_options)
         elif choice == '2':
             common.remove(link_for_csv)
         elif choice == '3':
             common.update(link_for_csv, common_options)
-        elif choice == '4':
-            result = crm.get_longest_name_id(table)
-            os.system("clear")         
-            terminal_view.print_result(result, 'ID of the customer with the Longest name: ')
-            choice = terminal_view.get_choice_submenu(options)          
+        elif choice == '4':      
+            terminal_view.print_result(crm.get_longest_name_id(table), 'ID of the customer with the Longest name: ')       
+            dont_clear = True
         elif choice == '5':
-            result = crm.get_subscribed_emails(table)
-            os.system("clear")
-            terminal_view.print_result(result, 'Customers who has subscribed to the newsletter: ')
-            choice = terminal_view.get_choice_submenu(options)
+            terminal_view.print_result(crm.get_subscribed_emails(table), 'Customers who has subscribed to the newsletter: ')
+            dont_clear = True
         else:
-            os.system("clear")
+            #os.system("clear")
             terminal_view.print_error_message("There is no such choice, please try again")
-            sleep(1)
-            choice = terminal_view.get_choice_submenu(options) 
+            #sleep(1)
+            #choice = terminal_view.get_choice_submenu(options) 

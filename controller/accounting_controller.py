@@ -20,11 +20,14 @@ def run():
     link_for_csv = 'model/accounting/items.csv'
     title_list = ["ID", "Month", "Day", "Year", "Income or Outflow money", "Amount"]
     choice = None
+    dont_clear = False
     while choice != "0":
-        os.system("clear")
-        table = data_manager.get_table_from_file(link_for_csv)
-        terminal_view.print_table(table, title_list)
+        if not dont_clear:
+            os.system("clear")
+            table = data_manager.get_table_from_file(link_for_csv)
+            terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
+        dont_clear = False
         if choice == "1":
             common.add(link_for_csv, common_options)
         elif choice == "2":
@@ -32,12 +35,10 @@ def run():
         elif choice == "3":
             common.update(link_for_csv, common_options)
         elif choice == "4":
-            result = accounting.which_year_max(table)            
-            os.system("clear")
-            terminal_view.print_result(result, 'Year with the highest profit: ')
-            choice = terminal_view.get_choice_submenu(options)
+            terminal_view.print_result(accounting.which_year_max(table), 'Year with the highest profit: ')
+            dont_clear = True
         else:
-            os.system("clear")
+            #os.system("clear")
             terminal_view.print_error_message("There is no such choice, please try again")
-            sleep(1)
-            choice = terminal_view.get_choice_submenu(options)
+            #sleep(1)
+            #choice = terminal_view.get_choice_submenu(options)

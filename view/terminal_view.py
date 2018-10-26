@@ -68,25 +68,22 @@ def print_result(result, label=''):
     """
 
     # your code
+    os.system('clear')
     if type(result) == str:
-        os.system('clear')
         if label:
             print(f'{label}')
         print(f'{result}')
     elif type(result) == list:
-        os.system('clear')
         if label:
             print(label)
         for item in result:
             print(item)
     elif type(result) == dict:
-        os.system('clear')
         if label:
             print(label)
         for key, value in result.items():
             print(f'{key} -> {value}')
     elif type(result) == int:
-        os.system('clear')
         if label:
             print(f'{label}')
         print(f'{result}')
