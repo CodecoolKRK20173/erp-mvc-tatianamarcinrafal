@@ -63,11 +63,10 @@ def get_lowest_price_item_id(table):
         return list_with_title_from_file
 
     if len(list_with_cheapest_games) == 1:
-        return list_with_cheapest_games
+        return list_with_cheapest_games[0][0]
     else:
-        return sort_list(list_with_cheapest_games)[0]
+        return sort_list(list_with_cheapest_games)[0][0]
 
-    # your code
 
 
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
