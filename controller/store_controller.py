@@ -27,7 +27,7 @@ def run():
         elif choice == '3':
             common.update(file, common_options)
         elif choice == '4':
-            msg = "Products by manufacturer"
+            msg = "Products by manufacturer:\n"
             terminal_view.print_result(store.get_counts_by_manufacturers(table), msg)
             dont_clear = True
         elif choice == '5':
