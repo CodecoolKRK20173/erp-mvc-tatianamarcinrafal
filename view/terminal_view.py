@@ -85,6 +85,11 @@ def print_result(result, label=''):
             print(label)
         for key, value in result.items():
             print(f'{key} -> {value}')
+    elif type(result) == int:
+        os.system('clear')
+        if label:
+            print(f'{label}')
+        print(f'{result}')
 
 
 def print_menu(title, list_options, exit_message):
