@@ -27,10 +27,14 @@ def run():
                       'Years it can be used: ']
     title_list = ["Id", "Name", "Manufacturer", "Year of purchase", "Years it can be used"]
     choice = None
+    dont_clear = False
     while choice != "0":
-        os.system("clear")
-        terminal_view.print_table(table, title_list)
+        if not dont_clear:
+            os.system("clear")
+            table = data_manager.get_table_from_file(link_to_csv)
+            terminal_view.print_table(table, title_list)
         choice = terminal_view.get_choice_submenu(options)
+        dont_clear = False
         if choice == "1":
             common.add(link_to_csv, common_options)
         elif choice == "2":
@@ -38,10 +42,13 @@ def run():
         elif choice == "3":
             common.remove(link_to_csv)
         elif choice == "4":
+            os.system("clear")
             terminal_view.print_table(inventory.get_available_items(table), labels)
+            dont_clear = True
         elif choice == "5":
             terminal_view.print_result(inventory.get_average_durability_by_manufacturers(
                 table), '\nWhat are the average durability times for each manufacturer: ')
+            dont_clear = True
         else:
             terminal_view.print_error_message("There is no such choice.")
 
