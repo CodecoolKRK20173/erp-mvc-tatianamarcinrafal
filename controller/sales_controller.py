@@ -28,7 +28,11 @@ def run():
             lowest_price = sales.get_lowest_price_item_id(table)
             terminal_view.print_result(lowest_price, 'Lowest price game is: ')
         if choice == '5':
-            crm.get_items_sold_between
+            dates_to_input = ['From month: ', 'From day: ', 'From year: ', 'To month:', 'To day: ', "To year: "]
+            inputs = terminal_view.get_inputs(dates_to_input, "Please input appropriate data.")
+            answer = sales.get_items_sold_between(table, int(inputs[0]), int(inputs[1]), int(inputs[2]), int(inputs[3]),
+                                         int(inputs[4]), int(inputs[5]))
+            terminal_view.print_table(answer, title_list)
             # print here
 
         # else:
