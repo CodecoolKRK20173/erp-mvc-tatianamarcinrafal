@@ -15,7 +15,6 @@ def run():
     Returns:
         None
     """
-    # os.system("clear")
     options = ["Add", "Remove", "Update", "Oldest person", "Persons closest to average"]
     common_options = ["Name: ", "Year: "]
     file = "model/hr/persons.csv"
@@ -36,13 +35,11 @@ def run():
         elif choice == '3':
             common.update(file, common_options)
         elif choice == '4':
-            terminal_view.print_result(hr.get_oldest_person(table))
+            terminal_view.print_result(hr.get_oldest_person(table), "Oldest persons:\n")
             dont_clear = True
-            # print here
         elif choice == '5':
-            terminal_view.print_result(hr.get_persons_closest_to_average(table))
+            msg = "Persons with age closest to average:\n"
+            terminal_view.print_result(hr.get_persons_closest_to_average(table), msg)
             dont_clear = True
-            # print here
         else:
             terminal_view.print_error_message("There is no such choice.")
-
