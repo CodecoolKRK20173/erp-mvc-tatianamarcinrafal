@@ -55,12 +55,7 @@ def handle_menu():
 
 
 def main():
-    while True:
-        handle_menu()
-        try:
-            choose()
-        except KeyError as err:
-            ui.print_error_message(str(err))
+    root_controller.run()
 
 
 if __name__ == '__main__':

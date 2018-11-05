@@ -11,47 +11,18 @@ Data table structure:
 """
 
 # everything you'll need is imported:
-# User interface module
-import ui
-# data manager module
-import data_manager
-# common module
-import common
+from model import data_manager
+from model import common
 
 
-def start_module():
+
+def add(table, record):
     """
-    Starts this module and displays its menu.
-     * User can access default special features from here.
-     * User can go back to main menu from here.
-
-    Returns:
-        None
-    """
-
-    # you code
-
-
-def show_table(table):
-    """
-    Display a table
-
-    Args:
-        table (list): list of lists to be displayed.
-
-    Returns:
-        None
-    """
-
-    # your code
-
-
-def add(table):
-    """
-    Asks user for input and adds it into the table.
+    Add new record to table
 
     Args:
         table (list): table to add new record to
+        record (list): new record
 
     Returns:
         list: Table with a new record
@@ -79,19 +50,18 @@ def remove(table, id_):
     return table
 
 
-def update(table, id_):
+def update(table, id_, record):
     """
-    Updates specified record in the table. Ask users for new data.
+    Updates specified record in the table.
 
     Args:
-        table (list): list in which record should be updated
+        table: list in which record should be updated
         id_ (str): id of a record to update
+        record (list): updated record
 
     Returns:
         list: table with updated record
     """
-
-    # your code
 
     return table
 
@@ -108,7 +78,35 @@ def which_year_max(table):
 
     Returns:
         number
+
     """
+    year_profit = {}
+    for row in table:
+        year = row[3]
+        money = row[5]
+        profit = row[4]
+        if year not in year_profit.keys():
+            if profit == "in":
+                year_profit[year] = int(money)
+            elif profit == "out":
+                year_profit[year] = 0 - int(money)
+        else:
+            if profit == "in":
+                year_profit[year] += int(money)
+            elif profit == "out":
+                year_profit[year] -= int(money)
+    year_highest_profit = 0
+    highest_profit = 0
+    if year_profit:
+        year_profit_list = tuple(year_profit.items())
+        for pair in year_profit_list:
+            if pair[1] > highest_profit:
+                highest_profit = pair[1]
+                year_highest_profit = pair[0] 
+    if year_highest_profit:
+        number = int(year_highest_profit)
+
+    return number
 
     # your code
 

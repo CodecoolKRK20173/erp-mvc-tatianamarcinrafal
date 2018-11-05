@@ -140,7 +140,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 
 
 def get_title_by_id(id):
-
     """
     Reads the table with the help of the data_manager module.
     Returns the title (str) of the item with the given id (str) on None om case of non-existing id.
@@ -156,7 +155,6 @@ def get_title_by_id(id):
 
 
 def get_title_by_id_from_table(table, id):
-
     """
     Returns the title (str) of the item with the given id (str) on None om case of non-existing id.
 
