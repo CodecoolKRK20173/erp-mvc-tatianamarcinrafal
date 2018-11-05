@@ -12,6 +12,7 @@ Data table structure:
 from model import data_manager
 from model import common
 import os
+from view import terminal_view
 
 def add(table, record):
     """
@@ -127,6 +128,16 @@ def get_subscribed_emails(table):
         Returns:
             list: list of strings (where a string is like "email;name")
         """
+    list_subscribed = []
+    for row in table:
+        subscribed = row[3]
+        number = str(1)       
+        if '1' in subscribed:
+            name = str(row[1])
+            email = str(row[2])
+            customers = (email + ";" + name)
+            list_subscribed.append(customers)
+    return list_subscribed
 
     # your code
 
@@ -146,8 +157,15 @@ def get_name_by_id(id):
     Returns:
         str: the name of the customer
     """
-
-    # your code
+    answer = ''
+    link_for_csv = "model/crm/customers.csv"
+    table = data_manager.get_table_from_file(link_for_csv) 
+    for row in table:
+        id_customers = str(row[0])
+        name_customer = str(row[1])
+        if str(id) == id_customers:            
+            answer = name_customer
+    return answer
 
 
 
