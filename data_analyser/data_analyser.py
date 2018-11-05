@@ -9,10 +9,10 @@ Use the functions of the modules instead.
 # todo: importing everything you need
 
 # importing everything you need
-import ui
-import common
-from sales import sales
-from crm import crm
+from view import terminal_view
+from model import common
+from model.sales import sales
+from model.crm import crm
 
 
 def start_module():
