@@ -15,7 +15,7 @@ def run():
     Returns:
         None
     """
-    options = ["Add data", "Remove data", "Update data", "The customer ID with the Longest name", "Newsletter subscribtion", "Customer\'s name with the given ID" ]
+    options = ["Add data", "Remove data", "Update data", "The customer ID with the Longest name", "Newsletter subscribtion", "Customer\'s name with the given ID", "Customer\'s name with the given ID" ]
     common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
     link_for_csv = "model/crm/customers.csv"
     title_list = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
@@ -43,6 +43,10 @@ def run():
         elif choice == '6':
             ID = terminal_view.get_inputs(["ID: "], "Please enter ID: ")
             terminal_view.print_result(crm.get_name_by_id(ID), "Customer\'s name by given ID: ")
+            dont_clear = True
+        elif choice == '7':
+            ID = terminal_view.get_inputs(["ID: "], "Please enter ID: ")
+            terminal_view.print_result(crm.get_name_by_id_from_table(table, ID), "Customer\'s name by given ID: ")
             dont_clear = True
         else:
             #os.system("clear")
