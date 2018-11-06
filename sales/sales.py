@@ -16,6 +16,8 @@ Data table structure:
 import view
 # data manager module
 # common module
+import common
+import terminal_view
 from controller import common
 from view import terminal_view
 from model import data_manager
@@ -23,6 +25,7 @@ import os
 
 sales_file = "model/sales/sales.csv"
 customers_file = "model/crm/customers.csv"
+
 
 def start_module():
     """
@@ -33,42 +36,6 @@ def start_module():
     Returns:
         None
     """
-
-    options = ["Add", "Remove", "Update", "Lowest price item ID", "Items sold between[in progress]"]
-    common_options = ["Title: ", "Price: ", "Month: ", "Day: ", "Year: "]
-    file = "model/sales/sales.csv"
-    title_list = ["ID", "Title", "Price", "Month", "Day", "Year", "Crm ID"]
-    choice = None
-    dont_clear = False
-    options_which_no_table_show = ['4', '5']
-    while choice != '0':
-        if not dont_clear:
-            os.system("clear")
-            table = data_manager.get_table_from_file(file)
-            terminal_view.print_table(table, title_list)
-        choice = terminal_view.get_choice_submenu(options)
-        dont_clear = False
-        if choice not in options_which_no_table_show:
-            terminal_view.print_table(table, title_list)
-        if choice == '1':
-            add(file, common_options)
-        if choice == '2':
-            remove(file)
-        if choice == '3':
-            update(file, common_options)
-        if choice == '4':
-            lowest_price = sales.get_lowest_price_item_id(table)
-            terminal_view.print_result(lowest_price, 'Lowest price game is: ')
-            dont_clear = True
-        if choice == '5':
-            os.system("clear")
-            dates_to_input = ['From month: ', 'From day: ', 'From year: ', 'To month:', 'To day: ', "To year: "]
-            inputs = terminal_view.get_inputs(dates_to_input, "Please input appropriate data.")
-            answer = sales.get_items_sold_between(table, int(inputs[0]), int(inputs[1]), int(inputs[2]), int(inputs[3]),
-                                         int(inputs[4]), int(inputs[5]))
-            terminal_view.print_table(answer, title_list)
-            dont_clear = True
-
 
 
 def show_table(table):
@@ -102,9 +69,9 @@ def add(table, common_options):
     adding_type = terminal_view.get_choice_submenu(add_options)
     if adding_type == '1':
         terminal_view.get_inputs(["Crm ID: "], "Please provide existing user ID")
-        #terminal_view
+        # terminal_view
     record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
-    save(file, common.add(get_table_from(sales_file), record)) 
+    save(file, common.add(get_table_from(sales_file), record))
     return table
 
 
@@ -183,9 +150,51 @@ def get_lowest_price_item_id(table):
     else:
         return sort_list(list_with_cheapest_games)[0][0]
 
+    small_price = int(table[0][2])
+    print(small_price)
+
+    for price in table:
+        if small_price >= int(price[2]):
+            small_price = int(price[2])
+
+    list_with_cheapest_games = []
+    for record in table:
+        if int(record[2]) == small_price:
+            list_with_cheapest_games.append(record)
+
+    def sort_list(list_with_title_from_file):
+
+        iterations = 1
+        N = len(list_with_title_from_file)
+        j = 0
+        while iterations < N:
+            if j <= N-2:
+                if list_with_title_from_file[j] > list_with_title_from_file[j+1]:
+                    temp = list_with_title_from_file[j+1]
+                    list_with_title_from_file[j+1] = list_with_title_from_file[j]
+                    list_with_title_from_file[j] = temp
+                    j = j + 1
+                else:
+                    j = j + 1
+            else:
+                iterations = iterations + 1
+                j = 0
+
+        return list_with_title_from_file
+
+    if len(list_with_cheapest_games) == 1:
+        return list_with_cheapest_games[0][0]
+    else:
+        return sort_list(list_with_cheapest_games)[0][0]
 
 
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
+
+    if len(str(month_from)) == 1:
+        month_from = '0' + str(month_from)
+
+    if len(str(day_from)) == 1:
+        day_from = '0' + str(day_from)
 
     if len(str(month_from)) == 1:
         month_from = '0' + str(month_from)
@@ -223,14 +232,18 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 
     return list_with_item_sold_between
 
+    return list_with_item_sold_between
+
 # functions supports data abalyser
 # --------------------------------
 
+# TODO: zrobić w dół
 
-def get_title_by_id(id):
+
+def get_title_by_id(id_):
     """
     Reads the table with the help of the data_manager module.
-    Returns the title (str) of the item with the given id (str) on None om case of non-existing id.
+    Returns the title (str) of the item with the given id (str) on None in case of non-existing id.
 
     Args:
         id (str): the id of the item
@@ -239,10 +252,16 @@ def get_title_by_id(id):
         str: the title of the item
     """
 
-    # your code
+    list_from_sales_file = data.manager.get_table_from_file(sales_file)
+
+    for games in list_from_sales_file:
+        if games[0] == id_:
+            terminal_view.print_result(games[1])
+
+    return None
 
 
-def get_title_by_id_from_table(table, id):
+def get_title_by_id_from_table(table, id_):
     """
     Returns the title (str) of the item with the given id (str) on None om case of non-existing id.
 
@@ -254,7 +273,11 @@ def get_title_by_id_from_table(table, id):
         str: the title of the item
     """
 
-    # your code
+    for games in table:
+        if games[0] == id_:
+            terminal_view.print_result(games[1])
+
+    return None
 
 
 def get_item_id_sold_last():
@@ -265,8 +288,27 @@ def get_item_id_sold_last():
     Returns:
         str: the _id_ of the item that was sold most recently.
     """
+    list_from_sales_file = data.manager.get_table_from_file(sales_file)
 
-    # your code
+    recently_sold = 0
+
+    for games in list_from_sales_file:
+        if len(games[3]) == 1:
+            month = '0' + str(games[3])
+        else:
+            month = str(games[3])
+
+        if len(games[4]) == 1:
+            day = '0' + str(games[4])
+        else:
+            day = str(games[4])
+
+        sold_date = str(games[5]) + month + day
+
+        if int(sold_date) > int(recently_sold):
+            recently_sold = sold_date
+
+    terminal_view.print_result(recently_sold)
 
 
 def get_item_id_sold_last_from_table(table):
@@ -280,7 +322,27 @@ def get_item_id_sold_last_from_table(table):
         str: the _id_ of the item that was sold most recently.
     """
 
-    # your code
+    recently_sold = (0, 0)
+
+    for line, games in enumerate(table):
+        if len(games[3]) == 1:
+            month = '0' + str(games[3])
+        else:
+            month = str(games[3])
+
+        if len(games[4]) == 1:
+            day = '0' + str(games[4])
+        else:
+            day = str(games[4])
+
+        sold_date = str(games[5]) + month + day
+
+        if int(sold_date) > int(recently_sold[0]):
+            recently_sold = (sold_date, line)
+
+    line_with_search_line = recently_sold[1]
+
+    terminal_view.print_result(table[line_with_search_line][0])
 
 
 def get_item_title_sold_last_from_table(table):
@@ -294,7 +356,27 @@ def get_item_title_sold_last_from_table(table):
         str: the _title_ of the item that was sold most recently.
     """
 
-    # your code
+    recently_sold = (0, 0)
+
+    for line, games in enumerate(table):
+        if len(games[3]) == 1:
+            month = '0' + str(games[3])
+        else:
+            month = str(games[3])
+
+        if len(games[4]) == 1:
+            day = '0' + str(games[4])
+        else:
+            day = str(games[4])
+
+        sold_date = str(games[5]) + month + day
+
+        if int(sold_date) > int(recently_sold[0]):
+            recently_sold = (sold_date, line)
+
+        line_with_search_line = recently_sold[1]
+
+    terminal_view.print_result(table[line_with_search_line][1])
 
 
 def get_the_sum_of_prices(item_ids):
