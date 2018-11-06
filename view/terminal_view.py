@@ -67,13 +67,12 @@ def print_result(result, label=''):
     """
 
     # your code
-    # os.system('clear')
+    os.system('clear')
     if type(result) == str:
         if label:
             print(f'{label}')
         print(f'{result}')
     elif type(result) == int:
-        os.system('clear')
         if label:
             print(f'{label}')
         print(f'{result}')
@@ -92,7 +91,10 @@ def print_result(result, label=''):
             print(f'{label}')
         print(f'{result}')
     elif type(result) == float:
-        os.system('clear')
+        if label:
+            print(f'{label}')
+        print(f'{result}')
+    elif type(result) == set:
         if label:
             print(f'{label}')
         print(f'{result}')
