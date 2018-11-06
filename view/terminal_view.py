@@ -67,7 +67,7 @@ def print_result(result, label=''):
     """
 
     # your code
-    os.system('clear')
+    # os.system('clear')
     if type(result) == str:
         if label:
             print(f'{label}')
