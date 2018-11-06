@@ -13,12 +13,13 @@ Data table structure:
 
 # everything you'll need is imported:
 # User interface module
-import ui
+from view import terminal_view
 # data manager module
-import data_manager
+from model import data_manager
 # common module
-import common
-import terminal_view
+from model import common
+from controller import common
+
 
 
 def start_module():
@@ -46,7 +47,7 @@ def show_table(table):
     # your code
 
 
-def add(table):
+def add(table, common_options):
     """
     Asks user for input and adds it into the table.
 
@@ -56,9 +57,35 @@ def add(table):
     Returns:
         list: Table with a new record
     """
+    sales_table = common.get_table_from(sales_file)
+    customers_table = common.get_table_from(customers_file)
+    common.get_table_from(sales_file)
+    add_options = ["Add for an existing user", "Add new user"]
+    os.system("clear")
+    #terminal_view.print_menu("Please select an option:",add_options, "Return to main menu")
+    customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    terminal_view.print_table(customers_table, customer_titles)
+    adding_type = terminal_view.get_choice_submenu(add_options)
+    if adding_type == '1':
+        id = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
+        # Validation
+        exists = False
+        for element in customers_table:
+            if element[0] == id:
+                exists = True
+        
+        if not exists:
+            terminal_view.print_error_message("User not found")
+        else:
+        # Actual Add
+            record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
+            record.append(id)
 
-    # your code
+    elif adding_type == '2':
+        common_options.append('Crm ID')
+        record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
 
+    save(file, common.add(get_table_from(sales_file), record))
     return table
 
 
@@ -73,10 +100,11 @@ def remove(table, id_):
     Returns:
         list: Table without specified record.
     """
-
-    # your code
-
+    for element in table:
+        if element[0] == id_:
+            table.remove(element)
     return table
+
 
 
 def update(table, id_):
@@ -91,9 +119,12 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
-
+    record.insert(0, id_)
+    for element in table:
+        if element[0] == id_:
+            table[table.index(element)] = record[:]
     return table
+
 
 
 # special functions:
@@ -347,18 +378,8 @@ def get_item_title_sold_last_from_table(table):
 
 
 def get_the_sum_of_prices(item_ids):
-    """
-    Reads the table of sales with the help of the data_manager module.
-    Returns the sum of the prices of the items in the item_ids.
+    pass
 
-    Args:
-        item_ids (list of str): the ids
-
-    Returns:
-        number: the sum of the items' prices
-    """
-
-    # your code
 
 
 def get_the_sum_of_prices_from_table(table, item_ids):
@@ -373,7 +394,7 @@ def get_the_sum_of_prices_from_table(table, item_ids):
         number: the sum of the items' prices
     """
 
-    # your code
+    
 
 
 def get_customer_id_by_sale_id(sale_id):
