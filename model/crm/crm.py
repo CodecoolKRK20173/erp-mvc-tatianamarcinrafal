@@ -131,11 +131,14 @@ def get_subscribed_emails(table):
     list_subscribed = []
     for row in table:
         subscribed = row[3]
-        number = str(1)       
-        if '1' in subscribed:
+        number = str(1)
+        subscription = "1"       
+        if subscription in subscribed:
             name = str(row[1])
             email = str(row[2])
-            customers = (email + ";" + name)
+            customers = []
+            customers.append(email)
+            customers.append(name)
             list_subscribed.append(customers)
     return list_subscribed
 
@@ -163,7 +166,7 @@ def get_name_by_id(id):
     for row in table:
         id_customer = str(row[0])
         name_customer = str(row[1])
-        if id[0] == id_customer:            # jezeli wywala blad w tej linijce to pewnie id jest str, wymienic id[0]
+        if id == id_customer:
             answer = name_customer
         else:
             answer = None
@@ -185,7 +188,7 @@ def get_name_by_id_from_table(table, id):
     for row in table:
         id_customer = str(row[0])
         name_customer = str(row[1])
-        if id[0] == id_customer:            # jezeli wywala blad w tej linijce to pewnie id jest str, wymienic id[0]
+        if id == id_customer:
             answer = name_customer
         else:
             answer = None

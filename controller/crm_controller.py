@@ -15,7 +15,7 @@ def run():
     Returns:
         None
     """
-    options = ["Add data", "Remove data", "Update data", "The customer ID with the Longest name", "Newsletter subscribtion", "Customer\'s name with the given ID", "Customer\'s name with the given ID" ]
+    options = ["Add data", "Remove data", "Update data", "The customer ID with the Longest name", "Newsletter subscription", "Customer\'s name with the given ID", "Customer\'s name with the given ID" ]
     common_options = ["Name: ", "E-mail: ", "Newsletter subscribtion ('1'-yes or '0'-no): "]
     link_for_csv = "model/crm/customers.csv"
     title_list = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
@@ -38,14 +38,17 @@ def run():
             terminal_view.print_result(crm.get_longest_name_id(table), 'ID of the customer with the Longest name: ')       
             dont_clear = True
         elif choice == '5':
-            terminal_view.print_result(crm.get_subscribed_emails(table), 'Customers who has subscribed to the newsletter: ')
+            title_list_subscription = ["email", "name"]
+            table_subscription = crm.get_subscribed_emails(table)
+            terminal_view.print_result('Customers who has subscribed to the newsletter: ')
+            terminal_view.print_table(table_subscription, title_list_subscription)            
             dont_clear = True
         elif choice == '6':
-            ID = terminal_view.get_inputs(["ID: "], "Please enter ID: ")
+            ID = terminal_view.get_input("ID: ", "Please enter ID: ")
             terminal_view.print_result(crm.get_name_by_id(ID), "Customer\'s name by given ID: ")
             dont_clear = True
         elif choice == '7':
-            ID = terminal_view.get_inputs(["ID: "], "Please enter ID: ")
+            ID = terminal_view.get_input("ID: ", "Please enter ID: ")
             terminal_view.print_result(crm.get_name_by_id_from_table(table, ID), "Customer\'s name by given ID: ")
             dont_clear = True
         else:
