@@ -14,7 +14,7 @@ def run():
     choice = None
     terminal_clear = True
     while choice != '0':
-        if dont_clear:
+        if terminal_clear:
             table = common.clear_instructions(file, title_list)
         choice = terminal_view.get_choice_submenu(options)
         terminal_clear = True
