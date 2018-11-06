@@ -12,14 +12,12 @@ def run():
     file = "model/store/games.csv"
     title_list = ["Id", "Title", "Manufacturer", "Price", "In stock"]
     choice = None
-    dont_clear = False
+    terminal_clear = True
     while choice != '0':
-        if not dont_clear:
-            os.system("clear")
-            table = data_manager.get_table_from_file(file)
-            terminal_view.print_table(table, title_list)
+        if dont_clear:
+            table = common.clear_instructions(file, title_list)
         choice = terminal_view.get_choice_submenu(options)
-        dont_clear = False
+        terminal_clear = True
         if choice == '1':
             common.add(file, common_options)
         elif choice == '2':
@@ -29,12 +27,12 @@ def run():
         elif choice == '4':
             msg = "Products by manufacturer:\n"
             terminal_view.print_result(store.get_counts_by_manufacturers(table), msg)
-            dont_clear = True
+            terminal_clear = False
         elif choice == '5':
             manufacturer = terminal_view.get_inputs(["Manufacturer: "], "Please provide manufacturer name" )
             msg = "Average by " + manufacturer[0] + ":"
             value = store.get_average_by_manufacturer(table, manufacturer)
             terminal_view.print_result(value, msg)
-            dont_clear = True
+            terminal_clear = False
         else:
             terminal_view.print_error_message("There is no such choice.")

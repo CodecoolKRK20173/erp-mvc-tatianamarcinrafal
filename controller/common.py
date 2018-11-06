@@ -2,7 +2,8 @@ import model
 from model import data_manager
 from view import terminal_view
 from model.hr import hr
-from model import common             
+from model import common       
+import os   
 
 
 def get_table_from(file):
@@ -35,3 +36,10 @@ def update(file, common_options):
     record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
     save(file, common.update(get_table_from(file), id_, record))
     # print here
+
+def clear_instructions(file, title_list):
+    os.system("clear")
+    table = data_manager.get_table_from_file(file)
+    terminal_view.print_table(table, title_list)
+
+    return table
