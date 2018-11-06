@@ -37,7 +37,7 @@ def remove(table, id_):
     """
     for element in table:
         test = None
-        if element[0] == id_[0]:
+        if element[0] == id_:
             table.remove(element)
     return table
 
@@ -54,9 +54,9 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-    record.insert(0, id_[0])
+    record.insert(0, id_)
     for element in table:
-        if element[0] == id_[0]:
+        if element[0] == id_:
             table[table.index(element)] = record[:]
     return table
 def generate_random(table):

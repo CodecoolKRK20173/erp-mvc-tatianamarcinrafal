@@ -13,6 +13,8 @@ from view import terminal_view
 from model import common
 from model.sales import sales
 from model.crm import crm
+from controller import common
+
 
 
 def start_module():
@@ -87,7 +89,14 @@ def get_the_most_frequent_buyers_names(num=1):
             The first one bought the most frequent. eg.: [('Genoveva Dingess', 8), ('Missy Stoney', 3)]
     """
 
-    # your code
+    # sales_table = common.get_table_from("model/sales/sales.csv")
+    # customers_table = common.get_table_from("model/crm/customers.csv")
+    # most_frq_buyr = 0
+    # for iterations in range(num):
+    #     for element in sales_table:
+    #         if element[3] > most_frq_buyr:
+    #             most_frq_buyr = element[3] 
+            
 
 
 def get_the_most_frequent_buyers_ids(num=1):

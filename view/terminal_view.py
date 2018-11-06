@@ -157,6 +157,13 @@ def get_inputs(list_labels, title):
     return inputs
 
 
+
+def get_input(label, title):
+    variable = None
+    if title:
+        print(f'{title}')
+    return input(label)
+
 def get_choice(options):
     os.system("clear")
     print_menu("Main menu", options, "Exit program")
