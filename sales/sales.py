@@ -13,12 +13,18 @@ Data table structure:
 
 # everything you'll need is imported:
 # User interface module
-import ui
+import view
 # data manager module
-import data_manager
 # common module
 import common
 import terminal_view
+from controller import common
+from view import terminal_view
+from model import data_manager
+import os
+
+sales_file = "model/sales/sales.csv"
+customers_file = "model/crm/customers.csv"
 
 
 def start_module():
@@ -46,7 +52,7 @@ def show_table(table):
     # your code
 
 
-def add(table):
+def add(table, common_options):
     """
     Asks user for input and adds it into the table.
 
@@ -56,9 +62,16 @@ def add(table):
     Returns:
         list: Table with a new record
     """
-
-    # your code
-
+    common.get_table_from(sales_file)
+    add_options = ["Add for an existing user", "Add new user"]
+    os.system("clear")
+    #terminal_view.print_menu("Please select an option:",add_options, "Return to main menu")
+    adding_type = terminal_view.get_choice_submenu(add_options)
+    if adding_type == '1':
+        terminal_view.get_inputs(["Crm ID: "], "Please provide existing user ID")
+        # terminal_view
+    record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
+    save(file, common.add(get_table_from(sales_file), record))
     return table
 
 
@@ -74,7 +87,7 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    common.remove(sales_file)
 
     return table
 
@@ -91,8 +104,7 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
-
+    common.remove(sales_file)
     return table
 
 
@@ -100,16 +112,43 @@ def update(table, id_):
 # ------------------
 
 def get_lowest_price_item_id(table):
-    """
-    Question: What is the id of the item that was sold for the lowest price?
-    if there are more than one item at the lowest price, return the last item by alphabetical order of the title
 
-    Args:
-        table (list): data table to work on
+    small_price = int(table[0][2])
+    print(small_price)
 
-    Returns:
-         string: id
-    """
+    for price in table:
+        if small_price >= int(price[2]):
+            small_price = int(price[2])
+
+    list_with_cheapest_games = []
+    for record in table:
+        if int(record[2]) == small_price:
+            list_with_cheapest_games.append(record)
+
+    def sort_list(list_with_title_from_file):
+
+        iterations = 1
+        N = len(list_with_title_from_file)
+        j = 0
+        while iterations < N:
+            if j <= N-2:
+                if list_with_title_from_file[j] > list_with_title_from_file[j+1]:
+                    temp = list_with_title_from_file[j+1]
+                    list_with_title_from_file[j+1] = list_with_title_from_file[j]
+                    list_with_title_from_file[j] = temp
+                    j = j + 1
+                else:
+                    j = j + 1
+            else:
+                iterations = iterations + 1
+                j = 0
+
+        return list_with_title_from_file
+
+    if len(list_with_cheapest_games) == 1:
+        return list_with_cheapest_games[0][0]
+    else:
+        return sort_list(list_with_cheapest_games)[0][0]
 
     small_price = int(table[0][2])
     print(small_price)
@@ -150,21 +189,12 @@ def get_lowest_price_item_id(table):
 
 
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
-    """
-    Question: Which items are sold between two given dates? (from_date < sale_date < to_date)
 
-    Args:
-        table (list): data table to work on
-        month_from (int)
-        day_from (int)
-        year_from (int)
-        month_to (int)
-        day_to (int)
-        year_to (int)
+    if len(str(month_from)) == 1:
+        month_from = '0' + str(month_from)
 
-    Returns:
-        list: list of lists (the filtered table)
-    """
+    if len(str(day_from)) == 1:
+        day_from = '0' + str(day_from)
 
     if len(str(month_from)) == 1:
         month_from = '0' + str(month_from)
@@ -202,11 +232,14 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 
     return list_with_item_sold_between
 
+    return list_with_item_sold_between
 
 # functions supports data abalyser
 # --------------------------------
 
 # TODO: zrobić w dół
+
+
 def get_title_by_id(id_):
     """
     Reads the table with the help of the data_manager module.

@@ -25,13 +25,13 @@ def add(file, common_options):
 
 def remove(file):
     get_table_from(file)
-    id_ = terminal_view.get_inputs(["ID: "], "Please provide ID, which you want to remove")
+    id_ = terminal_view.get_input("ID: ", "Please provide ID, which you want to remove")
     save(file, common.remove(get_table_from(file), id_))
     # print here
 
 def update(file, common_options):
     get_table_from(file)
-    id_ = terminal_view.get_inputs(["ID: "], "Please provide ID, which you want to edit")
+    id_ = terminal_view.get_input("ID: ", "Please provide ID, which you want to edit")
     record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
     save(file, common.update(get_table_from(file), id_, record))
     # print here
