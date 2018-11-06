@@ -1,6 +1,8 @@
 # everything you'll need is imported:
 from view import terminal_view
+
 from model.sales import sales
+
 from controller import common
 from model import data_manager
 import os
@@ -48,3 +50,4 @@ def run():
             answer = sales.get_title_by_id(inputs)
             terminal_view.print_result(answer, 'Game title is: ')
             dont_clear = True
+
