@@ -1,6 +1,6 @@
 # everything you'll need is imported:
 from view import terminal_view
-from model.inventory import inventory
+from model import inventory
 import model
 from model import data_manager
 from controller import common

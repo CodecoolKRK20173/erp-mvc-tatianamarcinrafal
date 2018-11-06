@@ -1,3 +1,4 @@
+
 """ Sales module
 
 Data table structure:
@@ -13,14 +14,17 @@ Data table structure:
 
 # everything you'll need is imported:
 # User interface module
-from view import terminal_view
+
+# import ui
 # data manager module
-from model import data_manager
+# import data_manager
 # common module
+# import common
+from view import terminal_view
+from model import data_manager
 from model import common
-from controller import common
 
-
+sales_file = "model/sales/sales.csv"
 
 def start_module():
     """
@@ -250,11 +254,12 @@ def get_title_by_id(id_):
         str: the title of the item
     """
 
-    list_from_sales_file = data.manager.get_table_from_file(sales_file)
+    list_from_sales_file = data_manager.get_table_from_file(sales_file)
 
     for games in list_from_sales_file:
         if games[0] == id_:
-            terminal_view.print_result(games[1])
+            terminal_view.print_result(str(games[1]), 'Title is: ')
+            break
 
     return None
 
@@ -286,7 +291,7 @@ def get_item_id_sold_last():
     Returns:
         str: the _id_ of the item that was sold most recently.
     """
-    list_from_sales_file = data.manager.get_table_from_file(sales_file)
+    list_from_sales_file = data_manager.get_table_from_file(sales_file)
 
     recently_sold = 0
 
