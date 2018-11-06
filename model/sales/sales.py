@@ -442,7 +442,7 @@ def get_all_customer_ids():
 
     # your code
 
-
+#Tatiana
 def get_all_customer_ids_from_table(table):
     """
     Returns a set of customer_ids that are present in the table.
@@ -452,8 +452,12 @@ def get_all_customer_ids_from_table(table):
     Returns:
          set of str: set of customer_ids that are present in the table
     """
+    customer_ids = set()
+    for row in table:
+        id_customer = str(row[0])
+        customer_ids.add(id_customer)
+    return customer_ids# sales_comtroller print the table of this set
 
-    # your code
 
 
 def get_all_sales_ids_for_customer_ids():
