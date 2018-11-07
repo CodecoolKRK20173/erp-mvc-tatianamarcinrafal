@@ -22,7 +22,7 @@ Data table structure:
 # import common
 from view import terminal_view
 from model import data_manager
-from model import common
+from model import common as model_common
 from controller import common
 import os
 
@@ -55,7 +55,7 @@ def show_table(table):
     # your code
 
 
-def add(table, common_options):
+def add(    common_options):
     """
     Asks user for input and adds it into the table.
 
@@ -65,7 +65,7 @@ def add(table, common_options):
     Returns:
         list: Table with a new record
     """
-    sales_table = table
+    sales_table = common.get_table_from(sales_file)
     customers_table = common.get_table_from(customers_file)
     add_options = ["Add for an existing user", "Add new user"]
     customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
@@ -75,6 +75,7 @@ def add(table, common_options):
     adding_type = terminal_view.get_choice_submenu(add_options)
     
     os.system("clear")
+    terminal_view.print_table(customers_table, customer_titles)
     if adding_type == '1':
         id_ = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
         # Validation
@@ -86,19 +87,16 @@ def add(table, common_options):
         if not exists:
             terminal_view.print_error_message("User not found")
         else:
-        # Actual Add
-            input_options = common_options[:]
-            for element in input_options:
-                element + " :"
+    # Actual Add
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
             record.append(id_)
-            table.append(record)  
-            data_manager.write_table_to_file(sales_file, table)
+            record.insert(0, model_common.generate_random(record))
+
+            sales_table.append(record)  
+            data_manager.write_table_to_file(sales_file, sales_table)
     elif adding_type == '2':
-        common_options.append('Crm ID')
-        record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
-        common.save(sales_file, common.add(common.get_table_from(sales_file), record))
-    return table
+        common.add(customers_file, customer_titles)
+    return sales_table
 
 
 def remove(table, id_):
