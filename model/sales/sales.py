@@ -55,7 +55,7 @@ def show_table(table):
     # your code
 
 
-def add(    common_options):
+def add(common_options):
     """
     Asks user for input and adds it into the table.
 
@@ -69,21 +69,25 @@ def add(    common_options):
     customers_table = common.get_table_from(customers_file)
     add_options = ["Add for an existing user", "Add new user"]
     customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    customer_input_titles = ["Name: ", "E-mail: ", "Newsletter subscription: "]
     add_options = ["Add for an existing user", "Add new user"]
 
+    os.system("clear")
     terminal_view.print_table(customers_table, customer_titles)
     adding_type = terminal_view.get_choice_submenu(add_options)
     
-    os.system("clear")
-    terminal_view.print_table(customers_table, customer_titles)
-    if adding_type == '1':
+    if adding_type == '2':
+        record = common.add(customers_file, customer_input_titles)
+        os.system("clear")
+        customers_table = common.get_table_from(customers_file)
+        terminal_view.print_table(customers_table, customer_titles)
+    if adding_type == '1' or adding_type == '2':
         id_ = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
         # Validation
         exists = False
         for element in customers_table:
             if element[0] == id_:
                 exists = True
-
         if not exists:
             terminal_view.print_error_message("User not found")
         else:
@@ -91,15 +95,10 @@ def add(    common_options):
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
             record.append(id_)
             record.insert(0, model_common.generate_random(record))
-
             sales_table.append(record)  
-            data_manager.write_table_to_file(sales_file, sales_table)
-    elif adding_type == '2':
-        common.add(customers_file, customer_titles)
-    return sales_table
+            data_manager.write_table_to_file(sales_file, sales_table)   
 
-
-def remove(table, id_):
+def remove(file):
     """
     Remove a record with a given id from the table.
 
@@ -110,13 +109,9 @@ def remove(table, id_):
     Returns:
         list: Table without specified record.
     """
-    for element in table:
-        if element[0] == id_:
-            table.remove(element)
-    return table
+    common.remove(file)
 
-
-def update(table, id_):
+def update(file):
     """
     Updates specified record in the table. Ask users for new data.
 
@@ -128,11 +123,7 @@ def update(table, id_):
         list: table with updated record
     """
 
-    record.insert(0, id_)
-    for element in table:
-        if element[0] == id_:
-            table[table.index(element)] = record[:]
-    return table
+    common.update(file)
 
 
 # special functions:
