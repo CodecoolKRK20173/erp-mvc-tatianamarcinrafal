@@ -39,6 +39,8 @@ def choose():
             sales_controller.run()
         elif choice == "6":
             crm_controller.run()
+        elif choice == "7":
+            analyser_controller.run()
         elif choice == "0":
             terminal_view.print_result("Goodbye")
         else:
@@ -74,7 +76,8 @@ def handle_menu():
                "Inventory manager",
                "Accounting manager",
                "Sales manager",
-               "Customer Relationship Management (CRM)"]
+               "Customer Relationship Management (CRM)",
+               "Data analyser"]
     #   ui.print_menu("Main menu", options, "Exit program") < this was here (3 arguments) - may wanna fix that
     return terminal_view.get_choice(options) 
 

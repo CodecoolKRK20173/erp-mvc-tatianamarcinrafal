@@ -26,6 +26,7 @@ from model import common
 
 sales_file = "model/sales/sales.csv"
 
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -67,7 +68,7 @@ def add(table, common_options):
     add_options = ["Add for an existing user", "Add new user"]
     os.system("clear")
     #terminal_view.print_menu("Please select an option:",add_options, "Return to main menu")
-    customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    customer_titles = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
     terminal_view.print_table(customers_table, customer_titles)
     adding_type = terminal_view.get_choice_submenu(add_options)
     if adding_type == '1':
@@ -77,11 +78,11 @@ def add(table, common_options):
         for element in customers_table:
             if element[0] == id:
                 exists = True
-        
+
         if not exists:
             terminal_view.print_error_message("User not found")
         else:
-        # Actual Add
+            # Actual Add
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
             record.append(id)
 
@@ -110,7 +111,6 @@ def remove(table, id_):
     return table
 
 
-
 def update(table, id_):
     """
     Updates specified record in the table. Ask users for new data.
@@ -128,7 +128,6 @@ def update(table, id_):
         if element[0] == id_:
             table[table.index(element)] = record[:]
     return table
-
 
 
 # special functions:
@@ -258,10 +257,11 @@ def get_title_by_id(id_):
 
     for games in list_from_sales_file:
         if games[0] == id_:
-            terminal_view.print_result(str(games[1]), 'Title is: ')
-            break
-
-    return None
+            return str(games[1])
+            # terminal_view.print_result(str(games[1]), 'Title is: ')
+            # break
+        else:
+            return "This Id does not exist. Try again."
 
 
 def get_title_by_id_from_table(table, id_):
@@ -278,7 +278,7 @@ def get_title_by_id_from_table(table, id_):
 
     for games in table:
         if games[0] == id_:
-            terminal_view.print_result(games[1])
+            return games[1]
 
     return None
 
@@ -311,7 +311,7 @@ def get_item_id_sold_last():
         if int(sold_date) > int(recently_sold):
             recently_sold = sold_date
 
-    terminal_view.print_result(recently_sold)
+    return recently_sold+'\n'
 
 
 def get_item_id_sold_last_from_table(table):
@@ -344,47 +344,12 @@ def get_item_id_sold_last_from_table(table):
             recently_sold = (sold_date, line)
 
     line_with_search_line = recently_sold[1]
-
-    terminal_view.print_result(table[line_with_search_line][0])
-
-
-def get_item_title_sold_last_from_table(table):
-    """
-    Returns the _title_ of the item that was sold most recently.
-
-    Args:
-        table (list of lists): the sales table
-
-    Returns:
-        str: the _title_ of the item that was sold most recently.
-    """
-
-    recently_sold = (0, 0)
-
-    for line, games in enumerate(table):
-        if len(games[3]) == 1:
-            month = '0' + str(games[3])
-        else:
-            month = str(games[3])
-
-        if len(games[4]) == 1:
-            day = '0' + str(games[4])
-        else:
-            day = str(games[4])
-
-        sold_date = str(games[5]) + month + day
-
-        if int(sold_date) > int(recently_sold[0]):
-            recently_sold = (sold_date, line)
-
-        line_with_search_line = recently_sold[1]
-
-    terminal_view.print_result(table[line_with_search_line][1])
+    return table[line_with_search_line][0]
 
 
+# Rafał
 def get_the_sum_of_prices(item_ids):
     pass
-
 
 
 def get_the_sum_of_prices_from_table(table, item_ids):
@@ -398,8 +363,6 @@ def get_the_sum_of_prices_from_table(table, item_ids):
     Returns:
         number: the sum of the items' prices
     """
-
-    
 
 
 def get_customer_id_by_sale_id(sale_id):
@@ -442,7 +405,9 @@ def get_all_customer_ids():
 
     # your code
 
-#Tatiana
+# Tatiana
+
+
 def get_all_customer_ids_from_table(table):
     """
     Returns a set of customer_ids that are present in the table.
@@ -456,8 +421,7 @@ def get_all_customer_ids_from_table(table):
     for row in table:
         id_customer = str(row[0])
         customer_ids.add(id_customer)
-    return customer_ids# sales_comtroller print the table of this set
-
+    return customer_ids  # sales_comtroller print the table of this set
 
 
 def get_all_sales_ids_for_customer_ids():
