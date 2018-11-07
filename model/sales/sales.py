@@ -394,7 +394,7 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
 
 def get_all_customer_ids():
     table = common.get_table_from(sales_file)
-    return get_all_customer_ids_from_table(table, sales)
+    return get_all_customer_ids_from_table(table)
 
 # Tatiana
 
