@@ -420,6 +420,7 @@ def get_all_customer_ids_from_table(table):
     for row in table:
         id_customer = str(row[0])
         customer_ids.add(id_customer)
+
     return customer_ids  # sales_comtroller print the table of this set
 
 
@@ -435,8 +436,19 @@ def get_all_sales_ids_for_customer_ids():
          (dict of (key, value): (customer_id, (list) sale_ids)) where the sale_ids list contains
             all the sales id belong to the given customer_id
     """
+    link_for_csv = "model/sales/sales.csv"
+    table_sales = data_manager.get_table_from_file(link_for_csv)    
+    customers_sales = {}
+    for row in table_sales:
+        customer_id = row[6]
+        sale_ids = row[0]
+        sale_ids_list = [row[0]]
+        if customer_id in customers_sales.keys():
+            customers_sales[customer_id].append(sale_ids)
+        else:
+            customers_sales[customer_id] = sale_ids_list
+    return customers_sales
 
-    # your code
 
 
 def get_all_sales_ids_for_customer_ids_form_table(table):
@@ -451,8 +463,16 @@ def get_all_sales_ids_for_customer_ids_form_table(table):
          (dict of (key, value): (customer_id, (list) sale_ids)) where the sale_ids list contains
          all the sales id belong to the given customer_id
     """
-
-    # your code
+    customers_sales = {}
+    for row in table:
+        customer_id = row[6]
+        sale_ids = row[0]
+        sale_ids_list = [row[0]]
+        if customer_id in customers_sales.keys():
+            customers_sales[customer_id].append(sale_ids)
+        else:
+            customers_sales[customer_id] = sale_ids_list
+    return customers_sales
 
 
 def get_num_of_sales_per_customer_ids():
@@ -464,8 +484,17 @@ def get_num_of_sales_per_customer_ids():
      Returns:
          dict of (key, value): (customer_id (str), num_of_sales (number))
     """
+    link_for_csv = "model/sales/sales.csv"
+    table_sales = data_manager.get_table_from_file(link_for_csv)
+    customers_number_sales = {}
+    for row in table_sales:
+        customer_id = row[6]
+        if customer_id in customers_number_sales.keys():
+            customers_number_sales[customer_id] += 1
+        else:
+            customers_number_sales[customer_id] = 1
+    return customers_number_sales
 
-    # your code
 
 
 def get_num_of_sales_per_customer_ids_from_table(table):
@@ -478,5 +507,12 @@ def get_num_of_sales_per_customer_ids_from_table(table):
      Returns:
          dict of (key, value): (customer_id (str), num_of_sales (number))
     """
+    customers_number_sales = {}
+    for row in table:
+        customer_id = row[6]
+        if customer_id in customers_number_sales.keys():
+            customers_number_sales[customer_id] += 1
+        else:
+            customers_number_sales[customer_id] = 1
+    return customers_number_sales
 
-    # your code
