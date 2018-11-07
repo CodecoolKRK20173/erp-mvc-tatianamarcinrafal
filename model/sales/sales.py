@@ -23,8 +23,12 @@ Data table structure:
 from view import terminal_view
 from model import data_manager
 from model import common
+from controller import common
+import os
 
 sales_file = "model/sales/sales.csv"
+customers_file = "model/crm/customers.csv"
+
 
 def start_module():
     """
@@ -61,35 +65,39 @@ def add(table, common_options):
     Returns:
         list: Table with a new record
     """
-    sales_table = common.get_table_from(sales_file)
+    sales_table = table
     customers_table = common.get_table_from(customers_file)
-    common.get_table_from(sales_file)
     add_options = ["Add for an existing user", "Add new user"]
-    os.system("clear")
-    #terminal_view.print_menu("Please select an option:",add_options, "Return to main menu")
     customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    add_options = ["Add for an existing user", "Add new user"]
+
     terminal_view.print_table(customers_table, customer_titles)
     adding_type = terminal_view.get_choice_submenu(add_options)
+    
+    os.system("clear")
     if adding_type == '1':
-        id = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
+        id_ = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
         # Validation
         exists = False
         for element in customers_table:
-            if element[0] == id:
+            if element[0] == id_:
                 exists = True
-        
+
         if not exists:
             terminal_view.print_error_message("User not found")
         else:
         # Actual Add
+            input_options = common_options[:]
+            for element in input_options:
+                element + " :"
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
-            record.append(id)
-
+            record.append(id_)
+            table.append(record)  
+            data_manager.write_table_to_file(sales_file, table)
     elif adding_type == '2':
         common_options.append('Crm ID')
         record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
-
-    save(file, common.add(get_table_from(sales_file), record))
+        common.save(sales_file, common.add(common.get_table_from(sales_file), record))
     return table
 
 
@@ -110,7 +118,6 @@ def remove(table, id_):
     return table
 
 
-
 def update(table, id_):
     """
     Updates specified record in the table. Ask users for new data.
@@ -128,7 +135,6 @@ def update(table, id_):
         if element[0] == id_:
             table[table.index(element)] = record[:]
     return table
-
 
 
 # special functions:
@@ -258,10 +264,11 @@ def get_title_by_id(id_):
 
     for games in list_from_sales_file:
         if games[0] == id_:
-            terminal_view.print_result(str(games[1]), 'Title is: ')
-            break
-
-    return None
+            return str(games[1])
+            # terminal_view.print_result(str(games[1]), 'Title is: ')
+            # break
+        else:
+            return "This Id does not exist. Try again."
 
 
 def get_title_by_id_from_table(table, id_):
@@ -278,7 +285,7 @@ def get_title_by_id_from_table(table, id_):
 
     for games in table:
         if games[0] == id_:
-            terminal_view.print_result(games[1])
+            return games[1]
 
     return None
 
@@ -311,7 +318,7 @@ def get_item_id_sold_last():
         if int(sold_date) > int(recently_sold):
             recently_sold = sold_date
 
-    terminal_view.print_result(recently_sold)
+    return recently_sold+'\n'
 
 
 def get_item_id_sold_last_from_table(table):
@@ -344,47 +351,12 @@ def get_item_id_sold_last_from_table(table):
             recently_sold = (sold_date, line)
 
     line_with_search_line = recently_sold[1]
-
-    terminal_view.print_result(table[line_with_search_line][0])
-
-
-def get_item_title_sold_last_from_table(table):
-    """
-    Returns the _title_ of the item that was sold most recently.
-
-    Args:
-        table (list of lists): the sales table
-
-    Returns:
-        str: the _title_ of the item that was sold most recently.
-    """
-
-    recently_sold = (0, 0)
-
-    for line, games in enumerate(table):
-        if len(games[3]) == 1:
-            month = '0' + str(games[3])
-        else:
-            month = str(games[3])
-
-        if len(games[4]) == 1:
-            day = '0' + str(games[4])
-        else:
-            day = str(games[4])
-
-        sold_date = str(games[5]) + month + day
-
-        if int(sold_date) > int(recently_sold[0]):
-            recently_sold = (sold_date, line)
-
-        line_with_search_line = recently_sold[1]
-
-    terminal_view.print_result(table[line_with_search_line][1])
+    return table[line_with_search_line][0]
 
 
+# Rafał
 def get_the_sum_of_prices(item_ids):
     pass
-
 
 
 def get_the_sum_of_prices_from_table(table, item_ids):
@@ -399,22 +371,16 @@ def get_the_sum_of_prices_from_table(table, item_ids):
         number: the sum of the items' prices
     """
 
-    
+    the_sum = 0
+    for number in item_ids:
+        for element in table:
+            if number == element[0]:
+                the_sum += int(element[2])
+    return the_sum
 
 
 def get_customer_id_by_sale_id(sale_id):
-    """
-    Reads the sales table with the help of the data_manager module.
-    Returns the customer_id that belongs to the given sale_id
-    or None if no such sale_id is in the table.
-
-    Args:
-         sale_id (str): sale id to search for
-    Returns:
-         str: customer_id that belongs to the given sale id
-    """
-
-    # your code
+    pass
 
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
@@ -428,21 +394,19 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
     Returns:
         str: customer_id that belongs to the given sale id
     """
+    
+    for element in table:
+        if element[0] == sale_id:
+            return element[6]
 
-    # your code
 
 
 def get_all_customer_ids():
-    """
-    Reads the sales table with the help of the data_manager module.
+    pass
 
-    Returns:
-         set of str: set of customer_ids that are present in the table
-    """
+# Tatiana
 
-    # your code
 
-#Tatiana
 def get_all_customer_ids_from_table(table):
     """
     Returns a set of customer_ids that are present in the table.
@@ -456,8 +420,8 @@ def get_all_customer_ids_from_table(table):
     for row in table:
         id_customer = str(row[0])
         customer_ids.add(id_customer)
-    return customer_ids# sales_controller print the table of this set
 
+    return customer_ids  # sales_comtroller print the table of this set
 
 
 def get_all_sales_ids_for_customer_ids():
