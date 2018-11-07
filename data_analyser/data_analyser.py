@@ -40,8 +40,9 @@ def get_the_last_buyer_name():
         str: Customer name of the last buyer
     """
 
-    # your code
-
+    # id from sales_controller get_item_id_sold_last
+    game_id_sold_last = sales.get_item_id_sold_last()
+    
 
 def get_the_last_buyer_id():
     """
