@@ -11,7 +11,8 @@ import os
 def run():
     options = ["Add", "Remove", "Update", "Lowest price item ID",
                "Items sold between", "Game title by ID", "All the Customer\'s IDs",
-               "Item that was sold most recently", 'Item ID that was sold most recently']
+               "Item that was sold most recently", "Item ID that was sold most recently",
+               "The sales of each customer", "The number of sales of each customer"]
     common_options = ["Title: ", "Price: ", "Month: ", "Day: ", "Year: "]
     file = "model/sales/sales.csv"
     title_list = ["ID", "Title", "Price", "Month", "Day", "Year", "Customer ID"]
@@ -48,7 +49,20 @@ def run():
             terminal_clear = True
         elif choice == "7":  # Tatiana
             terminal_view.print_result(sales.get_all_customer_ids_from_table(table), 'All the Customer\'s ID: ')
-            dont_clear = True
+            terminal_clear = True
+        elif choice == "8":
+            terminal_view.print_result(sales.get_item_id_sold_last(), 'Item that was sold most recently')
+            terminal_clear = True
+        elif choice == "9":
+            terminal_view.print_result(sales.get_item_id_sold_last_from_table(table),
+                                       'Item ID that was sold most recently')
+            terminal_clear = True
+        elif choice == "10":#Tatiana
+            terminal_view.print_result(sales.get_all_sales_ids_for_customer_ids_form_table(table), "The sales of each customer: ")
+            terminal_clear = True
+        elif choice == "11":#Tatiana
+            terminal_view.print_result(sales.get_num_of_sales_per_customer_ids_from_table(table), "The number of sales of each customer: ")
+            terminal_clear = True    
         elif choice == "20": # numer do zmiany - funkcja get_the_sum_of_prices_from_table /R 
             ids_amount = terminal_view.get_input("Amount of IDs: ", "How many IDs would you like to sum up?") 
             ids = []
@@ -63,11 +77,4 @@ def run():
             result = sales.get_customer_id_by_sale_id_from_table(table, sale_id)
             terminal_view.print_result(result, "Customer ID for Sale ID you provided: ")
             dont_clear = True
-            terminal_clear = True
-        elif choice == "8":
-            terminal_view.print_result(sales.get_item_id_sold_last(), 'Item that was sold most recently')
-            terminal_clear = True
-        elif choice == "9":
-            terminal_view.print_result(sales.get_item_id_sold_last_from_table(table),
-                                       'Item ID that was sold most recently')
-            terminal_clear = True
+
