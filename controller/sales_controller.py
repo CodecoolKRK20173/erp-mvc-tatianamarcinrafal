@@ -23,11 +23,11 @@ def run():
         choice = terminal_view.get_choice_submenu(options)
         dont_clear = False
         if choice == '1':
-            common.add(link_for_csv, common_options)
+            sales.add(link_for_csv, common_options)
         elif choice == '2':
-            common.remove(link_for_csv)
+            sales.remove(link_for_csv)
         elif choice == '3':
-            common.update(link_for_csv, common_options)
+            sales.update(link_for_csv, common_options)
         elif choice == '4':
             lowest_price = sales.get_lowest_price_item_id(table)
             terminal_view.print_result(lowest_price, 'Lowest price game is: ')
@@ -47,4 +47,18 @@ def run():
             dont_clear = True
         elif choice == "7":#Tatiana
             terminal_view.print_result(sales.get_all_customer_ids_from_table(table), 'All the Customer\'s ID: ')
+            dont_clear = True
+        elif choice == "20": # numer do zmiany - funkcja get_the_sum_of_prices_from_table /R 
+            ids_amount = terminal_view.get_input("Amount of IDs: ", "How many IDs would you like to sum up?") 
+            ids = []
+            for i in range(int(ids_amount)):
+                ids.append("ID: ")
+            inputs = terminal_view.get_inputs(ids, "Please provide an ID")
+            result = sales.get_the_sum_of_prices_from_table(table, inputs)
+            terminal_view.print_result(result, "Sum of prices for given IDs: ")
+            dont_clear = True
+        elif choice == "21":     # numer do zmiany /R
+            sale_id = terminal_view.get_input("Sale ID: ", "Please provide sale ID")
+            result = sales.get_customer_id_by_sale_id_from_table(table, sale_id)
+            terminal_view.print_result(result, "Customer ID for Sale ID you provided: ")
             dont_clear = True

@@ -3,7 +3,6 @@ from view import terminal_view
 from model.store import store
 from controller import common
 from model import data_manager
-import os
 
 
 def run():
