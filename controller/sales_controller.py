@@ -25,7 +25,7 @@ def run():
         choice = terminal_view.get_choice_submenu(options)
         terminal_clear = False
         if choice == '1':
-            common.add(file, common_options)
+            sales.add(common_options)
         elif choice == '2':
             common.remove(file)
         elif choice == '3':
