@@ -14,7 +14,6 @@ from model import data_manager
 from model import common
 
 
-
 # special functions:
 # ------------------
 
@@ -29,15 +28,16 @@ def get_available_items(table):
         list: list of lists (the inner list contains the whole row with their actual data types)
     """
     table_with_available_items = []
-    actual_year = 2018
+    actual_year = 2017
     for record in table:
         durability_year = int(record[3])+int(record[4])
+
         if durability_year >= actual_year:
+            record[3] = int(record[3])
+            record[4] = int(record[4])
             table_with_available_items.append(record)
 
     return table_with_available_items
-
-    # your code
 
 
 def get_average_durability_by_manufacturers(table):

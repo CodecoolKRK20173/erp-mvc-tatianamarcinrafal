@@ -1,6 +1,6 @@
 # everything you'll need is imported:
 from view import terminal_view
-from model import inventory
+from model.inventory import inventory
 import model
 from model import data_manager
 from controller import common
@@ -43,7 +43,9 @@ def run():
             common.remove(link_to_csv)
         elif choice == "4":
             os.system("clear")
-            terminal_view.print_table(inventory.get_available_items(table), labels)
+            table_to_print = inventory.get_available_items(table)
+            terminal_view.print_table(table_to_print, labels)
+            
             dont_clear = True
         elif choice == "5":
             terminal_view.print_result(inventory.get_average_durability_by_manufacturers(
