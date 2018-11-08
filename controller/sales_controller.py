@@ -53,14 +53,10 @@ def run():
         elif choice == "8":
             terminal_view.print_result(sales.get_item_id_sold_last(), 'Item that was sold most recently')
             terminal_clear = True
-        elif choice == "9":
-            terminal_view.print_result(sales.get_item_id_sold_last_from_table(table),
-                                       'Item ID that was sold most recently')
-            terminal_clear = True
-        elif choice == "10":#Tatiana
+        elif choice == "9":#Tatiana
             terminal_view.print_result(sales.get_all_sales_ids_for_customer_ids_form_table(table), "The sales of each customer: ")
             terminal_clear = True
-        elif choice == "11":#Tatiana
+        elif choice == "10volbeat":#Tatiana
             terminal_view.print_result(sales.get_num_of_sales_per_customer_ids_from_table(table), "The number of sales of each customer: ")
             terminal_clear = True    
         elif choice == "20": # numer do zmiany - funkcja get_the_sum_of_prices_from_table /R 
@@ -71,10 +67,10 @@ def run():
             inputs = terminal_view.get_inputs(ids, "Please provide an ID")
             result = sales.get_the_sum_of_prices_from_table(table, inputs)
             terminal_view.print_result(result, "Sum of prices for given IDs: ")
-            dont_clear = True
+            terminal_clear = True
         elif choice == "21":     # numer do zmiany /R
             sale_id = terminal_view.get_input("Sale ID: ", "Please provide sale ID")
             result = sales.get_customer_id_by_sale_id_from_table(table, sale_id)
             terminal_view.print_result(result, "Customer ID for Sale ID you provided: ")
-            dont_clear = True
+            terminal_clear = True
 

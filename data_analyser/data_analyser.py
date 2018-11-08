@@ -17,6 +17,7 @@ from controller import common
 
 
 
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -42,8 +43,13 @@ def get_the_last_buyer_name():
 
     # id from sales_controller get_item_id_sold_last
     game_id_sold_last = sales.get_item_id_sold_last()
-    
 
+    customer_id  = sales.get_customer_id_by_sale_id(game_id_sold_last)
+
+    return crm.get_name_by_id(customer_id)
+
+
+    
 def get_the_last_buyer_id():
     """
     Returns the customer _id_ of the customer made sale last.
@@ -52,6 +58,11 @@ def get_the_last_buyer_id():
         str: Customer id of the last buyer
     """
 
+    game_id_sold_last = sales.get_item_id_sold_last()
+
+    customer_id  = sales.get_customer_id_by_sale_id(game_id_sold_last)
+
+    return customer_id
     # your code
 
 

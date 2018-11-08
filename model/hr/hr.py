@@ -66,3 +66,5 @@ def get_persons_closest_to_average(table):
             closest_members.append(element[1])
         
     return closest_members
+
+

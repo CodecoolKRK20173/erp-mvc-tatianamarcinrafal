@@ -4,7 +4,7 @@
 
 import sys
 import controller
-from view import terminal_view # User Interface
+from view import terminal_view  # User Interface
 # Store module
 from controller import store_controller
 # Human Resources module
@@ -18,9 +18,7 @@ from controller import sales_controller
 # Customer Relationship Management (CRM) module
 from controller import crm_controller
 # Data Analyser module
-from data_analyser import data_analyser
-
-
+from controller import analyser_controller
 
 
 def choose():
@@ -79,7 +77,7 @@ def handle_menu():
                "Customer Relationship Management (CRM)",
                "Data analyser"]
     #   ui.print_menu("Main menu", options, "Exit program") < this was here (3 arguments) - may wanna fix that
-    return terminal_view.get_choice(options) 
+    return terminal_view.get_choice(options)
 
 
 # def main():

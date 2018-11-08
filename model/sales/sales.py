@@ -68,12 +68,12 @@ def add(table, common_options):
     sales_table = table
     customers_table = common.get_table_from(customers_file)
     add_options = ["Add for an existing user", "Add new user"]
-    customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    customer_titles = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
     add_options = ["Add for an existing user", "Add new user"]
 
     terminal_view.print_table(customers_table, customer_titles)
     adding_type = terminal_view.get_choice_submenu(add_options)
-    
+
     os.system("clear")
     if adding_type == '1':
         id_ = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
@@ -86,13 +86,13 @@ def add(table, common_options):
         if not exists:
             terminal_view.print_error_message("User not found")
         else:
-        # Actual Add
+            # Actual Add
             input_options = common_options[:]
             for element in input_options:
                 element + " :"
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
             record.append(id_)
-            table.append(record)  
+            table.append(record)
             data_manager.write_table_to_file(sales_file, table)
     elif adding_type == '2':
         common_options.append('Crm ID')
@@ -298,11 +298,11 @@ def get_item_id_sold_last():
     Returns:
         str: the _id_ of the item that was sold most recently.
     """
-    list_from_sales_file = data_manager.get_table_from_file(sales_file)
+    table = data_manager.get_table_from_file(sales_file)
 
-    recently_sold = 0
+    recently_sold = (0, 0)
 
-    for games in list_from_sales_file:
+    for line, games in enumerate(table):
         if len(games[3]) == 1:
             month = '0' + str(games[3])
         else:
@@ -315,10 +315,11 @@ def get_item_id_sold_last():
 
         sold_date = str(games[5]) + month + day
 
-        if int(sold_date) > int(recently_sold):
-            recently_sold = sold_date
+        if int(sold_date) > int(recently_sold[0]):
+            recently_sold = (sold_date, line)
 
-    return recently_sold+'\n'
+    line_with_search_line = recently_sold[1]
+    return table[line_with_search_line][0]
 
 
 def get_item_id_sold_last_from_table(table):
@@ -380,7 +381,12 @@ def get_the_sum_of_prices_from_table(table, item_ids):
 
 
 def get_customer_id_by_sale_id(sale_id):
-    pass
+
+    table = data_manager.get_table_from_file(sales_file)
+
+    for element in table:
+        if element[0] == sale_id:
+            return element[6]
 
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
@@ -394,11 +400,10 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
     Returns:
         str: customer_id that belongs to the given sale id
     """
-    
+
     for element in table:
         if element[0] == sale_id:
             return element[6]
-
 
 
 def get_all_customer_ids():
@@ -437,7 +442,7 @@ def get_all_sales_ids_for_customer_ids():
             all the sales id belong to the given customer_id
     """
     link_for_csv = "model/sales/sales.csv"
-    table_sales = data_manager.get_table_from_file(link_for_csv)    
+    table_sales = data_manager.get_table_from_file(link_for_csv)
     customers_sales = {}
     for row in table_sales:
         customer_id = row[6]
@@ -448,7 +453,6 @@ def get_all_sales_ids_for_customer_ids():
         else:
             customers_sales[customer_id] = sale_ids_list
     return customers_sales
-
 
 
 def get_all_sales_ids_for_customer_ids_form_table(table):
@@ -496,7 +500,6 @@ def get_num_of_sales_per_customer_ids():
     return customers_number_sales
 
 
-
 def get_num_of_sales_per_customer_ids_from_table(table):
     """
      Returns a dictionary of (customer_id, num_of_sales) where:
@@ -515,4 +518,3 @@ def get_num_of_sales_per_customer_ids_from_table(table):
         else:
             customers_number_sales[customer_id] = 1
     return customers_number_sales
-
