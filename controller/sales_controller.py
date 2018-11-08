@@ -27,9 +27,9 @@ def run():
         if choice == '1':
             sales.add(common_options)
         elif choice == '2':
-            sales.remove(file)
+            sales.remove()
         elif choice == '3':
-            sales.update(file, common_options)
+            sales.update(common_options)
         elif choice == '4':
             lowest_price = sales.get_lowest_price_item_id(table)
             terminal_view.print_result(lowest_price, 'Lowest price game is: ')

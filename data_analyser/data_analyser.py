@@ -18,6 +18,9 @@ from model import data_manager
 
 
 
+sales_table = common.get_table_from("model/sales/sales.csv")
+customers_table = common.get_table_from("model/crm/customers.csv")
+
 
 def start_module():
     """
@@ -171,15 +174,14 @@ def get_the_most_frequent_buyers_names(num=1):
         list of tuples: Ordered list of tuples of customer names and num of sales
             The first one bought the most frequent. eg.: [('Genoveva Dingess', 8), ('Missy Stoney', 3)]
     """
+    full_list_of_buyers = get_the_most_frequent_buyers_ids(num)
+    full_list_of_buyers_by_name = []
+    for element in full_list_of_buyers:
+        for csv_element in customers_table:
+            if element[0] == csv_element[0]:
+                full_list_of_buyers_by_name.append((csv_element[1], element[1]))
 
-    # sales_table = common.get_table_from("model/sales/sales.csv")
-    # customers_table = common.get_table_from("model/crm/customers.csv")
-    # most_frq_buyr = 0
-    # for iterations in range(num):
-    #     for element in sales_table:
-    #         if element[3] > most_frq_buyr:
-    #             most_frq_buyr = element[3] 
-            
+    return full_list_of_buyers_by_name
 
 
 def get_the_most_frequent_buyers_ids(num=1):
@@ -194,5 +196,20 @@ def get_the_most_frequent_buyers_ids(num=1):
         list of tuples: Ordered list of tuples of customer ids and num of sales
             The first one bought the most frequent. eg.: [(aH34Jq#&, 8), (bH34Jq#&, 3)]
     """
+    def scan_list_of_buyers(lis, id_):
+        for element in lis:
+            if id_ == element[0]:
+                return False
+        return True
 
-    # your code
+    full_list_of_buyers = []
+    most_frq_buyr = 0
+    for iterations in range(num):
+        for element in sales_table:
+            if int(element[2]) > most_frq_buyr and scan_list_of_buyers(full_list_of_buyers, element[6]):
+                    most_frq_buyr = int(element[2])
+        for element in sales_table:
+            if int(element[2]) == most_frq_buyr:
+                full_list_of_buyers.append((element[6], element[2]))
+                most_frq_buyr = 0
+    return full_list_of_buyers

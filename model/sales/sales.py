@@ -68,14 +68,14 @@ def add(common_options):
     sales_table = common.get_table_from(sales_file)
     customers_table = common.get_table_from(customers_file)
     add_options = ["Add for an existing user", "Add new user"]
-    customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    customer_titles = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
     customer_input_titles = ["Name: ", "E-mail: ", "Newsletter subscription: "]
     add_options = ["Add for an existing user", "Add new user"]
 
     os.system("clear")
     terminal_view.print_table(customers_table, customer_titles)
     adding_type = terminal_view.get_choice_submenu(add_options)
-    
+
     if adding_type == '2':
         record = common.add(customers_file, customer_input_titles)
         os.system("clear")
@@ -90,15 +90,15 @@ def add(common_options):
                 exists = True
         if not exists:
             terminal_view.print_error_message("User not found")
-        else:
-    # Actual Add
+        else:   # Actual add
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
             record.append(id_)
             record.insert(0, model_common.generate_random(record))
-            sales_table.append(record)  
-            data_manager.write_table_to_file(sales_file, sales_table)   
+            sales_table.append(record)
+            data_manager.write_table_to_file(sales_file, sales_table)
 
-def remove(file):
+
+def remove():
     """
     Remove a record with a given id from the table.
 
@@ -109,9 +109,10 @@ def remove(file):
     Returns:
         list: Table without specified record.
     """
-    common.remove(file)
+    common.remove(sales_file)
 
-def update(file):
+
+def update(common_options):
     """
     Updates specified record in the table. Ask users for new data.
 
@@ -122,8 +123,8 @@ def update(file):
     Returns:
         list: table with updated record
     """
-
-    common.update(file)
+    common_options.append("Customer ID: ")
+    common.update(sales_file, common_options)
 
 
 # special functions:
@@ -372,7 +373,7 @@ def get_the_sum_of_prices_from_table(table, item_ids):
 
 def get_customer_id_by_sale_id(sale_id):
     table = common.get_table_from(sales_file)
-    return get_customer_id_by_sale_id_from_table(table,sale_id)
+    return get_customer_id_by_sale_id_from_table(table, sale_id)
 
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
