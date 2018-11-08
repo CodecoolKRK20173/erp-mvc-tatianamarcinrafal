@@ -37,7 +37,7 @@ def run():
             terminal_clear = True
         elif choice == '5':
             dates_to_input = ['From month: ', 'From day: ', 'From year: ', 'To month:', 'To day: ', "To year: "]
-            inputs = terminal_view.get_inputs(dates_to_input, "Please input appropriate data.")
+            inputs = terminal_view.get_input(dates_to_input, "Please input appropriate data.")
             answer = sales.get_items_sold_between(table, int(inputs[0]), int(inputs[1]), int(inputs[2]), int(inputs[3]),
                                                   int(inputs[4]), int(inputs[5]))
             terminal_view.print_table(answer, title_list)
@@ -47,7 +47,7 @@ def run():
             inputs = terminal_view.get_input(dates_to_input, 'Please input appropriate Id.')
             answer = sales.get_title_by_id(inputs)
             terminal_view.print_result(answer+'\n', 'Game title is: \n')
-            terminal_clear = get_available_itemsget_available_itemsTrue
+            terminal_clear = True
         elif choice == "7":  # Tatiana
             terminal_view.print_result(sales.get_all_customer_ids_from_table(table), 'All the Customer\'s ID: ')
             terminal_clear = True
