@@ -22,7 +22,7 @@ Data table structure:
 # import common
 from view import terminal_view
 from model import data_manager
-from model import common
+from model import common as model_common
 from controller import common
 import os
 
@@ -55,7 +55,7 @@ def show_table(table):
     # your code
 
 
-def add(table, common_options):
+def add(common_options):
     """
     Asks user for input and adds it into the table.
 
@@ -65,43 +65,40 @@ def add(table, common_options):
     Returns:
         list: Table with a new record
     """
-    sales_table = table
+    sales_table = common.get_table_from(sales_file)
     customers_table = common.get_table_from(customers_file)
     add_options = ["Add for an existing user", "Add new user"]
-    customer_titles = ["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    customer_titles=["ID", "Name", "E-mail", "Newsletter subscribtion"]
+    customer_input_titles = ["Name: ", "E-mail: ", "Newsletter subscription: "]
     add_options = ["Add for an existing user", "Add new user"]
 
+    os.system("clear")
     terminal_view.print_table(customers_table, customer_titles)
     adding_type = terminal_view.get_choice_submenu(add_options)
-
-    os.system("clear")
-    if adding_type == '1':
+    
+    if adding_type == '2':
+        record = common.add(customers_file, customer_input_titles)
+        os.system("clear")
+        customers_table = common.get_table_from(customers_file)
+        terminal_view.print_table(customers_table, customer_titles)
+    if adding_type == '1' or adding_type == '2':
         id_ = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
         # Validation
         exists = False
         for element in customers_table:
             if element[0] == id_:
                 exists = True
-
         if not exists:
             terminal_view.print_error_message("User not found")
         else:
-            # Actual Add
-            input_options = common_options[:]
-            for element in input_options:
-                element + " :"
+    # Actual Add
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
             record.append(id_)
-            table.append(record)
-            data_manager.write_table_to_file(sales_file, table)
-    elif adding_type == '2':
-        common_options.append('Crm ID')
-        record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
-        common.save(sales_file, common.add(common.get_table_from(sales_file), record))
-    return table
+            record.insert(0, model_common.generate_random(record))
+            sales_table.append(record)  
+            data_manager.write_table_to_file(sales_file, sales_table)   
 
-
-def remove(table, id_):
+def remove(file):
     """
     Remove a record with a given id from the table.
 
@@ -112,13 +109,9 @@ def remove(table, id_):
     Returns:
         list: Table without specified record.
     """
-    for element in table:
-        if element[0] == id_:
-            table.remove(element)
-    return table
+    common.remove(file)
 
-
-def update(table, id_):
+def update(file):
     """
     Updates specified record in the table. Ask users for new data.
 
@@ -130,11 +123,7 @@ def update(table, id_):
         list: table with updated record
     """
 
-    record.insert(0, id_)
-    for element in table:
-        if element[0] == id_:
-            table[table.index(element)] = record[:]
-    return table
+    common.update(file)
 
 
 # special functions:
@@ -357,7 +346,8 @@ def get_item_id_sold_last_from_table(table):
 
 # Rafał
 def get_the_sum_of_prices(item_ids):
-    pass
+    table = common.get_table_from(sales_file)
+    return get_the_sum_of_prices_from_table(table, item_ids)
 
 
 def get_the_sum_of_prices_from_table(table, item_ids):
@@ -381,12 +371,8 @@ def get_the_sum_of_prices_from_table(table, item_ids):
 
 
 def get_customer_id_by_sale_id(sale_id):
-
-    table = data_manager.get_table_from_file(sales_file)
-
-    for element in table:
-        if element[0] == sale_id:
-            return element[6]
+    table = common.get_table_from(sales_file)
+    return get_customer_id_by_sale_id_from_table(table,sale_id)
 
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
@@ -407,7 +393,8 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
 
 
 def get_all_customer_ids():
-    pass
+    table = common.get_table_from(sales_file)
+    return get_all_customer_ids_from_table(table)
 
 # Tatiana
 

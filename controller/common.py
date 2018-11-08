@@ -21,7 +21,6 @@ def add(file, common_options):
     get_table_from(file)
     record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
     save(file, common.add(get_table_from(file), record)) 
-    # print here
 
 
 def remove(file):
