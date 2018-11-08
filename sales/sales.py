@@ -65,7 +65,7 @@ def add(table, common_options):
     common.get_table_from(sales_file)
     add_options = ["Add for an existing user", "Add new user"]
     os.system("clear")
-    #terminal_view.print_menu("Please select an option:",add_options, "Return to main menu")
+    # terminal_view.print_menu("Please select an option:",add_options, "Return to main menu")
     adding_type = terminal_view.get_choice_submenu(add_options)
     if adding_type == '1':
         terminal_view.get_inputs(["Crm ID: "], "Please provide existing user ID")
