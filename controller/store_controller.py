@@ -30,7 +30,7 @@ def run():
         elif choice == '5':
             manufacturer = terminal_view.get_inputs(["Manufacturer: "], "Please provide manufacturer name" )
             msg = "Average by " + manufacturer[0] + ":"
-            value = store.get_average_by_manufacturer(table, manufacturer)
+            value = store.get_average_by_manufacturer(table, manufacturer[0])
             terminal_view.print_result(value, msg)
             terminal_clear = False
         else:
