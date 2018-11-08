@@ -78,4 +78,10 @@ def run():
             terminal_view.print_error_message("There is no such choice, please try again")
 
 def input_for_add_menu():
+    '''
+
+    This function exists because test.py reads terminal_view.get_input()
+    as usage of standard input() function. What can you do?
+
+    '''
     return terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
