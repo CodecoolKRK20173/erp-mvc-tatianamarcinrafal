@@ -56,7 +56,7 @@ def run():
         elif choice == "9":#Tatiana
             terminal_view.print_result(sales.get_all_sales_ids_for_customer_ids_form_table(table), "The sales of each customer: ")
             terminal_clear = True
-        elif choice == "10volbeat":#Tatiana
+        elif choice == "10":#Tatiana
             terminal_view.print_result(sales.get_num_of_sales_per_customer_ids_from_table(table), "The number of sales of each customer: ")
             terminal_clear = True    
         elif choice == "20": # numer do zmiany - funkcja get_the_sum_of_prices_from_table /R 

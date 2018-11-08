@@ -157,7 +157,6 @@ def get_the_buyer_id_spent_most_and_the_money_spent():
     customer_max_value = tuple(customer_max_value)
 
     return customer_max_value
-get_the_buyer_id_spent_most_and_the_money_spent()
 
 def get_the_most_frequent_buyers_names(num=1):
     """
