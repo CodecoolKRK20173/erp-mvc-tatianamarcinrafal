@@ -15,7 +15,7 @@ def run():
     Returns:
         None
     """
-    options = ["Add data", "Remove data", "Update data", "Year with the highest profit"]
+    options = ["Add data", "Remove data", "Update data", "Year with the highest profit", "The average profit for a given year"]
     common_options = ["Month: ", "Day: ", "Year: ", "Income (enter: 'in') or Outflow(enter:'out') money: ", "Amount: "]
     link_for_csv = 'model/accounting/items.csv'
     title_list = ["ID", "Month", "Day", "Year", "Income or Outflow money", "Amount"]
@@ -35,10 +35,11 @@ def run():
         elif choice == "3":
             common.update(link_for_csv, common_options)
         elif choice == "4":
-            terminal_view.print_result(accounting.which_year_max(table), 'Year with the highest profit: ')
+            terminal_view.print_result(accounting.which_year_max(table), "Year with the highest profit: ")
+            dont_clear = True
+        elif choice == "5":
+            year = int(terminal_view.get_input("Year: ", "Enter a year to find out an average profit: "))
+            terminal_view.print_result(accounting.avg_amount(table, year), 'The average profit for a given year: ')
             dont_clear = True
         else:
-            #os.system("clear")
             terminal_view.print_error_message("There is no such choice, please try again")
-            #sleep(1)
-            #choice = terminal_view.get_choice_submenu(options)
