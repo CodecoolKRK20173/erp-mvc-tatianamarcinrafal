@@ -14,6 +14,7 @@ from model import common
 from model.sales import sales
 from model.crm import crm
 from controller import common
+from model import data_manager
 
 
 
@@ -54,7 +55,7 @@ def get_the_last_buyer_id():
 
     # your code
 
-
+#Tatiana
 def get_the_buyer_name_spent_most_and_the_money_spent():
     """
     Returns the customer's _name_ who spent the most in sum and the money (s)he spent.
@@ -62,8 +63,48 @@ def get_the_buyer_name_spent_most_and_the_money_spent():
     Returns:
         tuple: Tuple of customer name and the sum the customer spent eg.: ('Daniele Coach', 42)
     """
+    link_for_csv_sales = "model/sales/sales.csv"
+    table_sales = data_manager.get_table_from_file(link_for_csv_sales)
+    link_for_csv_customers = "model/crm/customers.csv"
+    table_customers = data_manager.get_table_from_file(link_for_csv_customers)    
+    customer_money = {}
+    game_prices = 0
+    customer = ''
+    
+    for row in table_sales:
+        money = int(row[2])
+        customer = row[6]
+        if customer not in customer_money.keys():
+            customer_money[customer] = money
+        else:
+            customer_money[customer] += money
 
-    # your code
+    max_value = 0
+    customer_max_value = []    
+    if customer_money:
+        for key, value in customer_money.items():
+            if value > max_value:
+                max_value = value
+                if customer_max_value:
+                    customer_max_value[0] = key
+                    customer_max_value[1] = max_value
+                else:
+                    customer_max_value.append(key)
+                    customer_max_value.append(max_value)
+    answer = []
+    if customer_max_value:
+        id_customer = customer_max_value[0]
+        spent_money = customer_max_value[1]
+        for row in table_customers:
+            id_customer_table = row[0]
+            name_customer = row[1]
+            if id_customer_table == id_customer:
+                answer.append(name_customer)
+                answer.append(spent_money)
+    name_answer = tuple(answer)
+    return name_answer
+
+
 
 
 def get_the_buyer_id_spent_most_and_the_money_spent():
@@ -74,8 +115,38 @@ def get_the_buyer_id_spent_most_and_the_money_spent():
         tuple: Tuple of customer id and the sum the customer spent eg.: (aH34Jq#&, 42)
     """
 
-    # your code
+    link_for_csv_sales = "model/sales/sales.csv"
+    table_sales = data_manager.get_table_from_file(link_for_csv_sales)
+    link_for_csv_customers = "model/crm/customers.csv"
+    table_customers = data_manager.get_table_from_file(link_for_csv_customers)    
+    customer_money = {}
+    game_prices = 0
+    customer = ''
+    
+    for row in table_sales:
+        money = int(row[2])
+        customer = row[6]
+        if customer not in customer_money.keys():
+            customer_money[customer] = money
+        else:
+            customer_money[customer] += money
+    
+    max_value = 0
+    customer_max_value = []
+    if customer_money:
+        for key, value in customer_money.items():
+            if value > max_value:
+                max_value = value
+                if customer_max_value:
+                    customer_max_value[0] = key
+                    customer_max_value[1] = max_value
+                else:
+                    customer_max_value.append(key)
+                    customer_max_value.append(max_value)
+    customer_max_value = tuple(customer_max_value)
 
+    return customer_max_value
+get_the_buyer_id_spent_most_and_the_money_spent()
 
 def get_the_most_frequent_buyers_names(num=1):
     """
