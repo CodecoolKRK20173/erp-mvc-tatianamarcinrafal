@@ -11,8 +11,9 @@ import os
 def run():
     options = ["Add", "Remove", "Update", "Lowest price item ID",
                "Items sold between", "Game title by ID", "All the Customer\'s IDs",
-               "Item that was sold most recently", "Item ID that was sold most recently",
-               "The sales of each customer", "The number of sales of each customer"]
+               "Item that was sold most recently", "The sales of each customer", 
+               "The number of sales of each customer", "Sum of prices for given IDs",
+               "Customer ID for Sale ID"]
     common_options = ["Title: ", "Price: ", "Month: ", "Day: ", "Year: "]
     file = "model/sales/sales.csv"
     title_list = ["ID", "Title", "Price", "Month", "Day", "Year", "Customer ID"]
@@ -59,18 +60,19 @@ def run():
         elif choice == "10":#Tatiana
             terminal_view.print_result(sales.get_num_of_sales_per_customer_ids_from_table(table), "The number of sales of each customer: ")
             terminal_clear = True    
-        elif choice == "20": # numer do zmiany - funkcja get_the_sum_of_prices_from_table /R 
+        elif choice == "11":
             ids_amount = terminal_view.get_input("Amount of IDs: ", "How many IDs would you like to sum up?") 
             ids = []
             for i in range(int(ids_amount)):
-                ids.append("ID: ")
+                ids.append("Sale ID: ")
             inputs = terminal_view.get_inputs(ids, "Please provide an ID")
             result = sales.get_the_sum_of_prices_from_table(table, inputs)
             terminal_view.print_result(result, "Sum of prices for given IDs: ")
             terminal_clear = True
-        elif choice == "21":     # numer do zmiany /R
+        elif choice == "12":
             sale_id = terminal_view.get_input("Sale ID: ", "Please provide sale ID")
             result = sales.get_customer_id_by_sale_id_from_table(table, sale_id)
             terminal_view.print_result(result, "Customer ID for Sale ID you provided: ")
             terminal_clear = True
-
+        else:
+            terminal_view.print_error_message("There is no such choice, please try again")
