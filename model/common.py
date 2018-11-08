@@ -55,9 +55,9 @@ def update(table, id_, record):
         list: table with updated record
     """
     record.insert(0, id_)
-    for element in table:
-        if element[0] == id_:
-            table[table.index(element)] = record[:]
+    for counter, value in enumerate(table):
+        if value[0] == id_:
+            table[counter] = record[:]
     return table
 def generate_random(table):
     """
@@ -93,7 +93,3 @@ def generate_random(table):
             return generate_random(table)
 
     return generated
-
-
-# def add_item(table, list_labels):
-#     get

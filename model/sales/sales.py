@@ -24,6 +24,7 @@ from view import terminal_view
 from model import data_manager
 from model import common as model_common
 from controller import common
+from controller import sales_controller
 import os
 
 sales_file = "model/sales/sales.csv"
@@ -82,7 +83,7 @@ def add(common_options):
         customers_table = common.get_table_from(customers_file)
         terminal_view.print_table(customers_table, customer_titles)
     if adding_type == '1' or adding_type == '2':
-        id_ = terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
+        id_ = sales_controller.input_for_add_menu()
         # Validation
         exists = False
         for element in customers_table:
@@ -143,7 +144,6 @@ def get_lowest_price_item_id(table):
     """
 
     small_price = int(table[0][2])
-    print(small_price)
 
     for price in table:
         if small_price >= int(price[2]):

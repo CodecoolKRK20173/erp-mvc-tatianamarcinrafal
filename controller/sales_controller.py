@@ -76,3 +76,6 @@ def run():
             terminal_clear = True
         else:
             terminal_view.print_error_message("There is no such choice, please try again")
+
+def input_for_add_menu():
+    return terminal_view.get_input("Crm ID: ", "Please provide existing user ID")
