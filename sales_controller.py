@@ -45,13 +45,13 @@ def run():
             answer = sales.get_title_by_id(inputs)
             terminal_view.print_result(answer, 'Game title is: ')
             dont_clear = True
-        elif choice == "7":#Tatiana
+        elif choice == "7":
             terminal_view.print_result(sales.get_all_customer_ids_from_table(table), 'All the Customer\'s ID: ')
             dont_clear = True
-        elif choice == "8":#Tatiana
+        elif choice == "8":
             terminal_view.print_result(sales.get_all_sales_ids_for_customer_ids(), "The sales of each customer: ")
             dont_clear = True
-        elif choice == "9":#Tatiana
+        elif choice == "9":
             terminal_view.print_result(sales.get_all_sales_ids_for_customer_ids_form_table(table), "The sales of each customer: ")
             dont_clear = True
         elif choice == "10":

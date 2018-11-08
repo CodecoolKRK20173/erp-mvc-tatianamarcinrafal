@@ -48,16 +48,16 @@ def run():
             answer = sales.get_title_by_id(inputs)
             terminal_view.print_result(answer+'\n', 'Game title is: \n')
             terminal_clear = True
-        elif choice == "7":  # Tatiana
+        elif choice == "7":
             terminal_view.print_result(sales.get_all_customer_ids_from_table(table), 'All the Customer\'s ID: ')
             terminal_clear = True
         elif choice == "8":
             terminal_view.print_result(sales.get_item_id_sold_last(), 'Item that was sold most recently')
             terminal_clear = True
-        elif choice == "9":#Tatiana
+        elif choice == "9":
             terminal_view.print_result(sales.get_all_sales_ids_for_customer_ids_form_table(table), "The sales of each customer: ")
             terminal_clear = True
-        elif choice == "10":#Tatiana
+        elif choice == "10":
             terminal_view.print_result(sales.get_num_of_sales_per_customer_ids_from_table(table), "The number of sales of each customer: ")
             terminal_clear = True    
         elif choice == "11":

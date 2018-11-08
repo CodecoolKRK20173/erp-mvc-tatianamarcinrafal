@@ -97,24 +97,24 @@ def which_year_max(table):
                 year_profit[year] -= int(money)
     year_highest_profit = 0
     highest_profit = 0
+    
     if year_profit:
         year_profit_list = tuple(year_profit.items())
         for pair in year_profit_list:
             if pair[1] > highest_profit:
                 highest_profit = pair[1]
                 year_highest_profit = pair[0] 
+    
     if year_highest_profit:
         number = int(year_highest_profit)
 
     return number
 
-    # your code
-
 
 def avg_amount(table, year):
     """
     Question: What is the average (per item) profit in a given year? [(profit)/(items count)]
-
+    (profit = in - out)
     Args:
         table (list): data table to work on
         year (number)
@@ -123,4 +123,25 @@ def avg_amount(table, year):
         number
     """
 
-    # your code
+    profit_transaction = 0
+    profit = []
+
+    for row in table:
+        year_transaction = int(row[3])
+        amout_transaction = int(row[5])
+        transaction = row[4]        
+        if year_transaction == year:
+            if transaction == "in":
+                profit.append(amout_transaction)
+            elif transaction == "out":
+                profit.append(-(amout_transaction))                
+    
+    if profit:
+        for amount in profit:
+            profit_transaction += int(amount)
+            
+    if profit_transaction:
+        amount_transaction = len(profit)
+        average_profit = round(float(profit_transaction / amount_transaction), 3)
+    
+    return average_profit
