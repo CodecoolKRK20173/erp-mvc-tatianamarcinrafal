@@ -31,7 +31,7 @@ def get_counts_by_manufacturers(table):
     dict = {}
     for element in table:
         if element[2] not in dict:
-            dict[element[2]] = 1
+            dict[element[2]] = 0
         if element [2] in dict:
             dict[element[2]] += 1
     return dict 
@@ -52,8 +52,8 @@ def get_average_by_manufacturer(table, manufacturer):
     sum_amount = 0
     times_summed = 0
     for element in table:
-        if element[2] == manufacturer[0]:
+        if element[2] == manufacturer:
             sum_amount += int(element[4])
             times_summed += 1
     if times_summed != 0:
-        return float(sum_amount)/float(times_summed)
+        return sum_amount/times_summed
