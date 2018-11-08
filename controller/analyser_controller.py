@@ -1,7 +1,7 @@
 from view import terminal_view
 
 from model.sales import sales
-
+from data_analyser import data_analyser
 from controller import common
 from model import data_manager
 import os
@@ -10,7 +10,7 @@ import os
 
 
 def run():
-    options = ["Add", "Remove", "Update", "Lowest price item ID"]
+    options = ["Customer name of the last buyer", "Customer ID of the last buyer", "Update", "Lowest price item ID"]
     # common_options = ["Title: ", "Price: ", "Month: ", "Day: ", "Year: "]
     # file = "model/sales/sales.csv"
     # title_list = ["ID", "Title", "Price", "Month", "Day", "Year", "Customer ID"]
@@ -19,13 +19,17 @@ def run():
     while choice != '0':
         if not terminal_clear:
             os.system("clear")
-            table = common.clear_instructions(file, title_list)
+            # table = common.clear_instructions(file, title_list)
         choice = terminal_view.get_choice_submenu(options)
         terminal_clear = False
         if choice == '1':
-            common.add(file, common_options)
+            last_buyer = data_analyser.get_the_last_buyer_name()
+            terminal_view.print_result(last_buyer, 'Customer name of the last buyer')
+            terminal_clear = True
         elif choice == '2':
-            common.remove(file)
+            last_buyer_id = data_analyser.get_the_last_buyer_id()
+            terminal_view.print_result(last_buyer_id, 'Customer ID of the last buyer')
+            terminal_clear = True
         elif choice == '3':
             common.update(file, common_options)
         elif choice == '4':

@@ -288,11 +288,11 @@ def get_item_id_sold_last():
     Returns:
         str: the _id_ of the item that was sold most recently.
     """
-    list_from_sales_file = data_manager.get_table_from_file(sales_file)
+    table = data_manager.get_table_from_file(sales_file)
 
-    recently_sold = 0
+    recently_sold = (0, 0)
 
-    for games in list_from_sales_file:
+    for line, games in enumerate(table):
         if len(games[3]) == 1:
             month = '0' + str(games[3])
         else:
@@ -305,10 +305,11 @@ def get_item_id_sold_last():
 
         sold_date = str(games[5]) + month + day
 
-        if int(sold_date) > int(recently_sold):
-            recently_sold = sold_date
+        if int(sold_date) > int(recently_sold[0]):
+            recently_sold = (sold_date, line)
 
-    return recently_sold+'\n'
+    line_with_search_line = recently_sold[1]
+    return table[line_with_search_line][0]
 
 
 def get_item_id_sold_last_from_table(table):
@@ -386,6 +387,7 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
     Returns:
         str: customer_id that belongs to the given sale id
     """
+
     for element in table:
         if element[0] == sale_id:
             return element[6]

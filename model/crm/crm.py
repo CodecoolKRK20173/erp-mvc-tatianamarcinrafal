@@ -149,7 +149,7 @@ def get_subscribed_emails(table):
 # --------------------------------
 
 
-def get_name_by_id(id):
+def get_name_by_id(id_):
     """
     Reads the table with the help of the data_manager module.
     Returns the name (str) of the customer with the given id (str) on None om case of non-existing id.
@@ -161,15 +161,13 @@ def get_name_by_id(id):
         str: the name of the customer
     """
     answer = ''
-    link_for_csv = "model/crm/customers.csv"
-    table = data_manager.get_table_from_file(link_for_csv) 
+    link_to_csv = "model/crm/customers.csv"
+    table = data_manager.get_table_from_file(link_to_csv) 
     for row in table:
         id_customer = str(row[0])
         name_customer = str(row[1])
-        if id == id_customer:
+        if id_customer == id_:
             answer = name_customer
-        else:
-            answer = None
     return answer
 
 
