@@ -9,7 +9,12 @@ import os
 
 
 def run():
-    options = ["Customer name of the last buyer", "Customer ID of the last buyer", "Customer who spent the most money", "Customer\'s ID who spent the most money"]
+    options = ["Customer name of the last buyer",
+                "Customer ID of the last buyer", 
+                "Customer who spent the most money", 
+                "Customer\'s ID who spent the most money", 
+                "Buyers, who effected more purchases", 
+                "Buyers\' ID, who effected more purchases"]
     choice = None
     terminal_clear = False
     while choice != '0':
@@ -34,3 +39,15 @@ def run():
             customer_id_most_money = data_analyser.get_the_buyer_id_spent_most_and_the_money_spent()
             terminal_view.print_result(customer_id_most_money, "Customer\'s ID who spent the most money: ")
             terminal_clear = True
+        elif choice == '5':
+            num = int(terminal_view.get_input("Number of people: ","Please enter a number of people, who you want to see, in the list of more purchases: "))
+            list_buyers_sales = data_analyser.get_the_most_frequent_buyers_names(num)
+            terminal_view.print_result(list_buyers_sales, "Buyers, who effected more purchases: ")
+            terminal_clear = True
+        elif choice == '6':
+            num = int(terminal_view.get_input("Number of people: ", "Please enter a number of people, who you want to see, in the list of more purchases: "))
+            list_id_buyers_sales = data_analyser.get_the_most_frequent_buyers_ids(num)
+            terminal_view.print_result(list_id_buyers_sales, "Buyers\' ID, who effected more purchases: ")
+            terminal_clear = True
+        else:
+            terminal_view.print_error_message("There is no such choice, please try again")

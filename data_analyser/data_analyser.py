@@ -161,7 +161,7 @@ def get_the_buyer_id_spent_most_and_the_money_spent():
 
     return customer_max_value
 
-def get_the_most_frequent_buyers_names(num=1):
+def get_the_most_frequent_buyers_names(num):
     """
     Returns 'num' number of buyers (more precisely: the customer's name) who bought most frequently in an
     ordered list of tuples of customer names and the number of their sales.
@@ -183,7 +183,7 @@ def get_the_most_frequent_buyers_names(num=1):
     return full_list_of_buyers_by_name
 
 
-def get_the_most_frequent_buyers_ids(num=1):
+def get_the_most_frequent_buyers_ids(num):
     """
     Returns 'num' number of buyers (more precisely: the customer ids of them) who bought more frequent in an
     ordered list of tuples of customer id and the number their sales.
