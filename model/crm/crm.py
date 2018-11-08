@@ -131,14 +131,12 @@ def get_subscribed_emails(table):
     list_subscribed = []
     for row in table:
         subscribed = row[3]
-        number = str(1)
-        subscription = "1"       
-        if subscription in subscribed:
+        one = "1"
+        if one in subscribed:
             name = str(row[1])
             email = str(row[2])
-            customers = []
-            customers.append(email)
-            customers.append(name)
+            customers = (email + ";" + name)
+
             list_subscribed.append(customers)
     return list_subscribed
 
