@@ -161,11 +161,7 @@ def get_name_by_id(id_):
     answer = ''
     link_to_csv = "model/crm/customers.csv"
     table = data_manager.get_table_from_file(link_to_csv) 
-    for row in table:
-        id_customer = str(row[0])
-        name_customer = str(row[1])
-        if id_customer == id_:
-            answer = name_customer
+    answer = get_name_by_id_from_table(table, id_)
     return answer
 
 
@@ -186,7 +182,5 @@ def get_name_by_id_from_table(table, id):
         name_customer = str(row[1])
         if id == id_customer:
             answer = name_customer
-        else:
-            answer = None
     return answer
-    # your code
+
