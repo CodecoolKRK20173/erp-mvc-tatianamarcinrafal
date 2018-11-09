@@ -71,21 +71,16 @@ def generate_random(table):
     Returns:
         string: Random and unique string
     """
-    def guess_upper_letter():
-        return random.choice('abcdefghijklmnopqrstuvwxyz').upper()
+    guess_upper_letter = random.choice('abcdefghijklmnopqrstuvwxyz').upper()
+    guess_letter = random.choice('abcdefghijklmnopqrstuvwxyz')
+    guess_int = random.randint(1, 9)
 
-    def guess_letter():
-        return random.choice('abcdefghijklmnopqrstuvwxyz')
-
-    def guess_int():
-        return random.randint(1, 9)
-
-    a = str(guess_letter())
-    b = str(guess_upper_letter())
-    c = str(guess_int())
-    d = str(guess_int())
-    e = str(guess_upper_letter())
-    f = str(guess_letter())
+    a = str(guess_letter)
+    b = str(guess_upper_letter)
+    c = str(guess_int)
+    d = str(guess_int)
+    e = str(guess_upper_letter)
+    f = str(guess_letter)
     generated = a + b + c + d + e + f + '#&'
 
     for lines in table:
