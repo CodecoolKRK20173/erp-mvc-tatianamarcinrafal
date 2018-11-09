@@ -20,7 +20,6 @@ def run():
     while choice != '0':
         if not terminal_clear:
             os.system("clear")
-            # table = common.clear_instructions(file, title_list)
         choice = terminal_view.get_choice_submenu(options)
         terminal_clear = False
         if choice == '1':

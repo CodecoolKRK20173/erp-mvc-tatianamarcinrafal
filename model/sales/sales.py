@@ -12,14 +12,6 @@ Data table structure:
     * customer_id (string): id from the crm
 """
 
-# everything you'll need is imported:
-# User interface module
-
-# import ui
-# data manager module
-# import data_manager
-# common module
-# import common
 from view import terminal_view
 from model import data_manager
 from model import common as model_common
@@ -84,14 +76,14 @@ def add(common_options):
         terminal_view.print_table(customers_table, customer_titles)
     if adding_type == '1' or adding_type == '2':
         id_ = sales_controller.input_for_add_menu()
-        # Validation
+
         exists = False
         for element in customers_table:
             if element[0] == id_:
                 exists = True
         if not exists:
             terminal_view.print_error_message("User not found")
-        else:   # Actual add
+        else:   
             record = terminal_view.get_inputs([opt for opt in common_options], "Please provide following data: ")
             record.append(id_)
             record.insert(0, model_common.generate_random(record))

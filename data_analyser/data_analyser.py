@@ -6,9 +6,6 @@ Avoud using the database (ie. .csv files) of other modules directly.
 Use the functions of the modules instead.
 """
 
-# todo: importing everything you need
-
-# importing everything you need
 from view import terminal_view
 from model import common
 from model.sales import sales
@@ -17,7 +14,7 @@ from controller import common
 from model import data_manager
 
 
-#global variables, don't change them
+
 sales_table = common.get_table_from("model/sales/sales.csv")
 customers_table = common.get_table_from("model/crm/customers.csv")
 
@@ -32,7 +29,7 @@ def start_module():
         None
     """
 
-    # your code
+   
 
     pass
 
@@ -45,7 +42,6 @@ def get_the_last_buyer_name():
         str: Customer name of the last buyer
     """
 
-    # id from sales_controller get_item_id_sold_last
     game_id_sold_last = sales.get_item_id_sold_last()
 
     customer_id  = sales.get_customer_id_by_sale_id(game_id_sold_last)
@@ -102,7 +98,7 @@ def get_the_buyer_id_spent_most_and_the_money_spent():
     game_prices = 0
     customer = ''
     
-    for row in sales_table:#sales_table is a global variable
+    for row in sales_table:
         money = int(row[2])
         customer = row[6]
         if customer not in customer_money.keys():
