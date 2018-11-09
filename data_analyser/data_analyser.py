@@ -82,12 +82,9 @@ def get_the_buyer_name_spent_most_and_the_money_spent():
     if customer_max_value:
         id_customer = customer_max_value[0]
         spent_money = customer_max_value[1]
-        for row in customers_table:#customers_table is global variable
-            id_customer_table = row[0]
-            name_customer = row[1]
-            if id_customer_table == id_customer:
-                answer.append(name_customer)
-                answer.append(spent_money)
+        name_customer = crm.get_name_by_id_from_table(customers_table, id_customer)    
+        answer.append(name_customer)
+        answer.append(spent_money)
     name_answer = tuple(answer)
     return name_answer
 
